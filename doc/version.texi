@@ -1,0 +1,3 @@
+@set version-penguin 0.2
+@set version-GM2     0.61
+@set updated-last    2007-10-25

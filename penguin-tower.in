@@ -1,0 +1,7 @@
+#!/bin/sh
+
+prefix=@prefix@
+datarootdir=@datarootdir@
+ptowerdir=${datarootdir}/ptower
+
+python ${ptowerdir}/penguin-tower.py -I${ptowerdir} $*

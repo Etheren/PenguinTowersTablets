@@ -1,0 +1,8 @@
+@numchapentry{About penguin tower}{1}{About penguin tower}{1}
+@numchapentry{Obtaining penguin tower}{2}{Obtaining penguin tower}{2}
+@numchapentry{Invoking penguin tower}{3}{Invoking penguin tower}{3}
+@numchapentry{Key commands}{4}{Key commands}{4}
+@appentry{Copying This Manual}{A}{Copying This Manual}{8}
+@unnchapentry{GNU Free Documentation License}{10001}{GNU Free Documentation License}{9}
+@unnsecentry{ADDENDUM: How to use this License for your documents}{10001.1}{}{15}
+@unnchapentry{Index}{10002}{Index}{16}

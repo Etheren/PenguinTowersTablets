@@ -1,0 +1,10 @@
+DEFINITION MODULE AdvAuto ;
+
+
+EXPORT QUALIFIED StartAuto ;
+
+
+PROCEDURE StartAuto ;
+
+
+END AdvAuto.

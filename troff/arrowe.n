@@ -1,0 +1,2 @@
+.so tmac.map
+.MAPCHAR 1 1 \\m[mywhite]\f[TB]\s18\v'-.2n'\[->]\mP

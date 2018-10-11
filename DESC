@@ -1,0 +1,122 @@
+#
+#  DESC - describes the isometric image
+#
+#  name               scale      offset
+#                     x    y     x   y
+stoneWall_N           1.0  0.15  -1  0
+stoneWall_S           1.0  0.15  -1  0
+stoneWall_E           1.0  0.15  -1  0
+stoneWall_W           1.0  0.15  -1  0
+stoneUneven_N         1.0  0.15  -1  0
+stoneUneven_S         1.0  0.15  -1  0
+stoneUneven_E         1.0  0.15  -1  0
+stoneUneven_W         1.0  0.15  -1  0
+stoneTile_N           1.0  0.15  -1  0
+stoneTile_S           1.0  0.15  -1  0
+stoneTile_E           1.0  0.15  -1  0
+stoneTile_W           1.0  0.15  -1  0
+stoneWallCorner_N     1.0  0.15  -1  0
+stoneWallCorner_S     1.0  0.15  -1  0
+stoneWallCorner_E     1.0  0.15  -1  0
+stoneWallCorner_W     1.0  0.15  -1  0
+stoneWallTop_N        1.0  0.15  -1  0
+stoneWallTop_S        1.0  0.15  -1  0
+stoneWallTop_E        1.0  0.15  -1  0
+stoneWallTop_W        1.0  0.15  -1  0
+stoneWallBroken_N     1.0  0.15  -1  0
+stoneWallBroken_S     1.0  0.15  -1  0
+stoneWallBroken_E     1.0  0.15  -1  0
+stoneWallBroken_W     1.0  0.15  -1  0
+stoneWallAged_N       1.0  0.15  -1  0
+stoneWallAged_S       1.0  0.15  -1  0
+stoneWallAged_E       1.0  0.15  -1  0
+stoneWallAged_W       1.0  0.15  -1  0
+stoneWallBrokenLeft_N 1.0  0.15  -1  0
+stoneWallBrokenLeft_S 1.0  0.15  -1  0
+stoneWallBrokenLeft_E 1.0  0.15  -1  0
+stoneWallBrokenLeft_W 1.0  0.15  -1  0
+#
+#  wall 2 units wide
+#
+stoneWall2Aged_N      1.0  0.15  -1  0
+stoneWall2Aged_W      1.0  0.15  -1  0
+stoneWall3Aged_N      1.0  0.15  -1  0
+stoneWall3Aged_W      1.0  0.15  -1  0
+#
+#  archway only
+#
+stoneWallArchway_N 1.0  0.15  -1  0
+stoneWallArchway_S 1.0  0.15  -1  0
+stoneWallArchway_E 1.0  0.15  -1  0
+stoneWallArchway_W 1.0  0.15  -1  0
+#
+#  stone wall and column only
+#
+stoneWallColumnIn_N 1.0  0.15  -1  0
+stoneWallColumnIn_S 1.0  0.15  -1  0
+stoneWallColumnIn_E 1.0  0.15  -1  0
+stoneWallColumnIn_W 1.0  0.15  -1  0
+#
+#  narrow wooden door/open/closed
+#
+stoneWallDoorClosed_N 1.0  0.15  -1  0
+stoneWallDoorClosed_S 1.0  0.15  -1  0
+stoneWallDoorClosed_E 1.0  0.15  -1  0
+stoneWallDoorClosed_W 1.0  0.15  -1  0
+stoneWallDoorOpen_N   1.0  0.15  -1  0
+stoneWallDoorOpen_S   1.0  0.15  -1  0
+stoneWallDoorOpen_E   1.0  0.15  -1  0
+stoneWallDoorOpen_W   1.0  0.15  -1  0
+#
+#  wide wooden door/open/closed
+#
+stoneWallGateClosed_N 1.0  0.15  -1  0
+stoneWallGateClosed_S 1.0  0.15  -1  0
+stoneWallGateClosed_E 1.0  0.15  -1  0
+stoneWallGateClosed_W 1.0  0.15  -1  0
+stoneWallGateOpen_N   1.0  0.15  -1  0
+stoneWallGateOpen_S   1.0  0.15  -1  0
+stoneWallGateOpen_E   1.0  0.15  -1  0
+stoneWallGateOpen_W   1.0  0.15  -1  0
+#
+#  window bars
+#
+stoneWallWindowBars_N 1.0  0.15  -1  0
+stoneWallWindowBars_S 1.0  0.15  -1  0
+stoneWallWindowBars_E 1.0  0.15  -1  0
+stoneWallWindowBars_W 1.0  0.15  -1  0
+#
+#  window open
+#
+stoneWallWindow_N     1.0  0.15  -1  0
+stoneWallWindow_S     1.0  0.15  -1  0
+stoneWallWindow_E     1.0  0.15  -1  0
+stoneWallWindow_W     1.0  0.15  -1  0
+#
+#  stone column
+#
+stoneWallColumn_N     1.0  0.15  -1  0
+stoneWallColumn_S     1.0  0.15  -1  0
+stoneWallColumn_E     1.0  0.15  -1  0
+stoneWallColumn_W     1.0  0.15  -1  0
+#
+#  single barrel
+#
+barrel_N              1.0  0.1  -1  .9
+barrel_S              1.0  0.1  -1  .9
+barrel_E              1.0  0.1  -1  .9
+barrel_W              1.0  0.1  -1  .9
+#
+#  chest open
+#
+chestOpen_N           1.0  0.15  -1  .9
+chestOpen_S           1.0  0.15  -1  .9
+chestOpen_E           1.0  0.15  -1  .9
+chestOpen_W           1.0  0.15  -1  .9
+#
+#  chest closed
+#
+chestClosed_N         1.0  0.15  -1  .9
+chestClosed_S         1.0  0.15  -1  .9
+chestClosed_E         1.0  0.15  -1  .9
+chestClosed_W         1.0  0.15  -1  .9

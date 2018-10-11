@@ -1,0 +1,29 @@
+DEFINITION MODULE Title ;
+
+(*
+    Title      : Title
+    Author     : Gaius Mulley
+    System     : UNIX (gm2)
+    Date       : Fri Sep  9 20:13:35 1994
+    Last edit  : Fri Sep  9 20:13:35 1994
+    Description: provides simple Morloc titles.
+*)
+
+EXPORT QUALIFIED GraphicTitle, BasicTitle ;
+
+
+(*
+   GraphicTitle - generate a pretty title for Morloc.
+*)
+
+PROCEDURE GraphicTitle ;
+
+
+(*
+   BasicTitle - generate a pretty title for Morloc.
+*)
+
+PROCEDURE BasicTitle ;
+
+
+END Title.

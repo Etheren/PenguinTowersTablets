@@ -1,0 +1,17 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT
+AC_CONFIG_SRCDIR([version.c])
+
+AC_PROG_CC
+AC_PROG_LEX
+AC_PATH_PROG(GM2, gm2, /usr/bin/gm2, $PATH:/usr/bin)
+AC_PATH_PROG(GROFF, groff, /usr/bin/groff, $PATH:/usr/bin)
+AC_PATH_PROG(FLEX, flex, /usr/bin/flex, $PATH:/usr/bin)
+AC_PATH_PROG(PNMTOPNG, pnmtopng, /usr/bin/pnmtopng, $PATH:/usr/bin)
+AC_PATH_PROG(GS, gs, /usr/bin/gs, $PATH:/usr/bin)
+AC_HAVE_LIBRARY(-lpth)
+
+dnl create these files
+AC_CONFIG_FILES([Makefile penguin-tower])
+AC_OUTPUT

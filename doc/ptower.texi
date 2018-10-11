@@ -1,0 +1,381 @@
+\input texinfo   @c -*-texinfo-*-
+@comment $Id: ptower.texi,v 1.4 2009-10-29 18:35:25 gaius Exp $
+@comment %**start of header
+@setfilename penguin-tower.info
+
+@include version.texi
+@settitle GNU Penguin Tower @value{version-penguin}
+@syncodeindex pg cp
+@comment %**end of header
+@copying
+This manual is for GNU Penguin Tower
+(version @value{version-penguin}, @value{updated-last}).
+
+Copyright @copyright{} 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover Texts being ``A GNU Manual,''
+and with the Back-Cover Texts as in (a) below.  A copy of the
+license is included in the section entitled ``GNU Free Documentation
+License.''
+
+(a) The FSF's Back-Cover Text is: ``You have freedom to copy and modify
+this GNU Manual, like GNU software.  Copies published by the Free
+Software Foundation raise funds for GNU development.''
+@end quotation
+@end copying
+
+@dircategory Texinfo documentation system
+@direntry
+* penguin-tower: (penguin-tower)Penguin tower client options.
+@end direntry
+
+@titlepage
+@title GNU Penguin Tower
+@subtitle for version @value{version-penguin}, @value{updated-last}
+@author Gaius Mulley (@email{gaius@@gnu.org})
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@contents
+
+@ifnottex
+@node Top, , (dir), (dir)
+@top GNU Penguin Tower
+
+@insertcopying
+@end ifnottex
+
+@menu
+* About penguin tower::
+* Obtaining penguin tower::
+* Building penguin tower::
+* Penguin tower client options::
+* Key commands::
+* Copying This Manual::
+* Index::
+@end menu
+
+@node About penguin tower, , (dir), (dir)
+@chapter About penguin tower
+
+Penguin tower is a multiplayer 2 dimensional game which was inspired
+by a game from the late 1970s, Morloc Tower
+@uref{http://www.mobygames.com/game/dunjonquest-morlocs-tower}
+Although Penguin Tower is a very different game it does retain a
+similar screen layout and many of the key commands are the same.
+
+The goal of the game is to stay alive as long as possible and to
+inflict the most damage on other players.  The games genre is probably
+a graphical multiuser dungeon which has a limited graphical interface
+and limited number of objects and weapons.
+
+Penguin tower consists of three main components, a client, a server
+and a protocol.  The client is written in Python and it utilises the
+pygame libraries.  The server is mostly written in Modula-2 and a
+small amount of C.  The protocol is entirely character and string
+based.
+
+The pengiun tower server was written during two Augusts in 1985 and
+1986 and originally ran on a 6 Mhz PC clone connected by two Visual
+200 terminals (making it a three player game).  The maps were drawn
+with simple ASCII characters, and it was quite playable (for those
+days!).  The 6 Mhz PC ran the server code quite comfortably, it
+occasionally slowed down, which perhaps added to its charm.
+
+Some of the server code has been replaced to allow it to run under the
+GNU Modula-2 coroutine set of libraries and also to allow arbitary
+numbers of clients to connect using sockets.  The protocol has also
+been retrofitted into the server code.
+
+@node Obtaining penguin tower, , (dir), (dir)
+@chapter Obtaining penguin tower
+
+You can download a copy of the game from
+@uref{http://floppsie.comp.glam.ac.uk/download/penguin-tower/penguin-tower-@value{version-penguin}.tar.gz}
+and then you need to extract the archive using the following command
+line:
+
+@example
+tar xvf penguin-tower-@value{version-penguin}.tar.gz
+@end example
+
+The game consists of a client and server.  To run the client
+you need to have installed @code{pygame} and then
+should be able to run it by typing:
+
+@example
+mkdir -p build $HOME/opt
+cd build
+../penguin-tower-@value{version-penguin}/configure --prefix=$HOME/opt
+python penguin-tower.py mcgreg.comp.glam.ac.uk:7000
+cd ..
+@end example
+
+You can now install penguin tower by:
+
+@example
+cd build
+make install
+cd ..
+@end example
+
+Hereafter you can invoke the installed copy by:
+
+@example
+$HOME/opt/penguin-tower mcgreg.comp.glam.ac.uk:7000
+@end example
+
+However you will have had to set your path to include the
+@code{$HOME/opt/bin} directory as specified by the initial
+@code{./configure}.  If you just want to run @code{penguin-tower}
+without installing it (perhaps to test the game).  Then skip the
+install and just run it via the python interpreter thus:
+
+@example
+cd penguin-tower-@value{version-penguin}
+python penguin-tower.py mcgreg.comp.glam.ac.uk:7000
+cd ..
+@end example
+
+@node Building penguin tower, , (dir), (dir)
+
+You can build penguin tower by:
+
+@example
+cd build
+make
+cd ..
+@end example
+
+The build will require @file{flex}, @file{gcc}, @file{gm2} (GNU
+Modula-2 release >=0.62), @file{groff}, @file{gs}, @file{netpbm}
+and @file{libpth-dev} to have been installed.
+
+On Debian or Ubuntu you should be able to install these by
+the following command:
+
+@example
+sudo apt-get install flex gcc gm2 groff gs netpbm libpth-dev
+@end example
+
+@node Penguin tower client options, , (dir), (dir)
+@chapter Penguin tower client options
+
+@pindex penguin-tower
+@cindex invoking @command{penguin-tower}
+
+Penguin tower can be invoked with the following options:
+
+@table @code
+@item -v
+display the current version of penguin tower.
+@item -h
+display a synopsis of the command line options.
+@item -w
+run in full screen mode rather than in a window.
+@item -f
+identical to the @code{-w} option.
+@item -d
+turns on debugging messages
+@item -Idirectory
+specifies
+@file{directory} as the location for where the subdirectories @file{data} and
+@file{sound} exist.
+@end table
+
+lastly server and port address can be given.  For example:
+
+@example
+penguin-tower server-name.example.org:7000
+@end example
+
+@node Key commands, , (dir), (dir)
+@chapter Key commands
+
+The following table details the keys and their meaning.  @footnote{We
+use the syntax [0-9] to mean any character 0, 1, 2, 3, 4, 5, 6, 7, 8
+or 9.  Also \n indicates the <enter> key and Esc indicates the escape
+key.}
+
+@table @code
+@item Esc
+quit game
+
+@item 1
+move forward 1 unit
+
+@item 2
+move forward 2 units
+
+@item [1-9]
+move forward n units
+
+@item g
+get treasure (must be facing treasure)
+
+@item d[1-9]\n
+drop a treasure.  The treasure is one of 1 to 9.
+
+@item d1[0-2]\n
+drop a treasure.  The treasure is one of 10 to 15.
+
+@item u[1-9]\n
+use treasure 1 to 9. Note that only some of the
+treasures can be used.
+
+@item o
+open a door, must be facing a door and next to it.
+
+@item c
+close a door, must be facing a door way and next to it.
+
+@item e
+examine a wall for a secret door, must be facing the wall
+and next to it.
+
+@item f
+fire normal arrow.  An arrow travels at approximately 25 units
+per second and they may be jumped over.  An arrow causes 23%
+damage should it hit its target and costs a 70 Kg player 19%
+fatigue.  An arrow may be repelled by the magic shield.
+
+@item m
+fire magic arrow.  A magic arrow travels at approximately 25 units
+per second and they may be jumped over.  It causes 74%
+damage should it hit its target and costs a 70 Kg player 27%
+fatigue.
+
+@item p
+parry, must be directly facing an opponent.  It inflicts 6% damage and
+costs a 70 Kg player 7% fatigue.
+
+@item a
+attack, must be directly facing an opponent.
+It inflicts 13% damage and costs a 70 Kg player 11% fatigue.
+
+@item t
+thrust must be directly facing an opponent.
+It inflicts 17% damage and costs a 70 Kg player 18% fatigue.
+
+@item r
+turn right.
+
+@item l
+turn left.
+
+@item v
+vault turn.
+@end table
+
+Notice that as your characters weight increase so it consumes more
+fatigue to move forward, fire arrows and fight.  The weight of each
+treasure is shown below together with its number and a summary of its
+effect in the game.
+
+@table @code
+@item 1
+Magic key, converts doors into the appearance of a wall - or a secret door.
+Any player can use @code{e} to examine the wall for a secret door.
+Although the player must be directly next to the original doorway.
+No noticable weight.
+
+@item 2
+Crystal ball, can be used @code{u} to give hints as to where other
+players are located.  Treasure weighs 33 Kgs.
+
+@item 3
+Magic spring, teleports you to a random room.  This treasure then
+disappears to another random room.
+
+@item 4
+sack of coal, cursed and must be taken to a specific room.
+It cannot be dropped until this room is reached and it weighs 150 Kgs!
+
+@item 5
+another sack of coal, identical to treasure 4.  It is unlikely that
+a map has two sacks of coal, unless the map creator was having a
+bad day.
+
+@item 6
+hot iron, weighs 4 Kg and inflicts 19% damage on the person who
+picks it up.
+
+@item 7
+hand grenade. When it explodes it causes 69% damage, it weighs
+3 Kg and can be used @code{u}.  When used, the pin is pulled
+and it will explode in 25 seconds time.  The explosion effects
+everyone in the same room.
+
+@item 8
+magic sword.  This weighs an additional 1 Kg, but it causes
+additional damage to be inflicted when parry, attack or
+thrust is used.  It also causes much less fatigue to be
+used when fighting.  The damage for parry, attack and thrust
+is: 8, 14 and 18.  The fatigue used is: 3, 7 and 12 respectively.
+
+@item 9
+magic shoes.  Makes running consume less fatigue (almost half the
+amount).
+
+@item 10
+sleep potion.  This weighs 5 Kgs and puts the person who
+picks it up to sleep for 24 second.
+
+@item 11
+repelling magnet.  Causes all treasures including the magnet
+to flee from you and find random places throughout the map.
+It also effects everyone in the same room in exactly the same way.
+
+@item 12
+treasure trove.  Can be used to locate all treasures in the map.
+It weighs 53 Kgs.
+
+@item 13
+speed potion.  Raises players priority in the server, increasing the
+response time relative to the rest of the players.
+
+@item 14
+magic shield.  Reflects normal arrows.  It weighs 2 Kgs but has no
+effect on magic arrows.
+
+@end table
+
+On connecting you
+should a screen similar to that below.
+
+@center @image{initial,,4in}
+
+You should then press any key (other than the escape key)
+and you will be presented with the following screen.
+
+@center @image{second,,4in}
+
+The user has entered @code{fred} and is just about to press the
+<enter> key.  After entering your name the screen will alter to
+display a map on the left hand side and a status description on the
+right hand side.
+
+@center @image{corridor,,4in}
+
+@node Copying This Manual, , (dir), (dir)
+@appendix Copying This Manual
+
+@menu
+* GNU Free Documentation License::  License for copying this manual.
+@end menu
+
+@include fdl.texi
+
+
+@node Index, , (dir), (dir)
+@unnumbered Index
+
+@printindex cp
+
+@bye

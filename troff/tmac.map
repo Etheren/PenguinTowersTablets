@@ -1,0 +1,122 @@
+.
+.\" morloc tower map building blocks
+.
+.defcolor mydarkred rgb 0.65f 0.1f 0.2f
+.defcolor myyellow  rgb 0.8f 0.9f 0.8f
+.defcolor mybrown   rgb 0.3f 0.12f 0.0f
+.defcolor mysilver  rgb 0.8f 0.8f 0.8f
+.defcolor mywhite   rgb 1.0f 1.0f 1.0f
+.defcolor myblack   rgb 0.0f 0.0f 0.0f
+.defcolor myblue    rgb 0.1f 0.2f 0.6f
+.
+.\"  use .25i for the map images
+.\" .nr UNIT .25i
+.
+.\"  use 1i for testing
+.nr UNIT .25i
+.nr XOFF .5i
+.nr YOFF .5i
+.
+.de MOVETO
+.  nr mapypos (\\$2*\\n[UNIT]u+\\n[YOFF]u);u
+.  nop \v'|\\n[mapypos]u'\c
+.  nr mapxpos (\\$1*\\n[UNIT]u+\\n[XOFF]u);u
+.  nop \h'|\\n[mapxpos]u'\c
+..
+.\"
+.\"  RECT - colour width height
+.\"         draws a rectangle from top left to bottom right
+.\"
+.de RECT
+.  nop \M[\\$1]\D'P \\$2 0 0 \\$3 -\\$2 0'\M[]\c
+.  sp -1
+..
+.\"
+.\"  SQUARE - colour width
+.\"           draws a square from top left to bottom right
+.\"
+.de SQUARE
+.  RECT \\$1 \\$2 \\$2
+..
+.\"
+.\"  WALLV - x y
+.\"          moves to absolute grid reference (x, y) and draws a
+.\"          vertical wall
+.\"
+.de WALLV
+.  MOVETO \\$1 \\$2
+.  SQUARE mydarkred \\n[UNIT]u
+.\" now add the cement
+.  nr cement3 (\\n[UNIT]*3/7)u
+.  nr cement6 (\\n[UNIT]/7)u
+.  MOVETO \\$1 \\$2
+.  RECT myyellow \\n[cement3]u \\n[cement6]u 
+.  MOVETO \\$1 \\$2
+.  nop \h'\\n[cement3]u'\c
+.  RECT myyellow \\n[cement6]u \\n[UNIT]u 
+.  MOVETO \\$1 \\$2
+.  nop \v'\\n[cement3]u'\h'\\n[UNIT]u-\\n[cement3]u'\c
+.  RECT myyellow \\n[cement3]u \\n[cement6]u 
+..
+.\"  WALLH - x y
+.\"          moves to absolute grid reference (x, y) and draws a
+.\"          horizontal wall
+.\"
+.de WALLH
+.  MOVETO \\$1 \\$2
+.  SQUARE mydarkred \\n[UNIT]u
+.\" now add the cement
+.  nr cement3 (\\n[UNIT]*3/7)u
+.  nr cement6 (\\n[UNIT]/7)u
+.  MOVETO \\$1 \\$2
+.  RECT myyellow \\n[cement6]u \\n[cement3]u
+.  MOVETO \\$1 \\$2
+.  nop \v'\\n[cement3]u'\c
+.  RECT myyellow \\n[UNIT]u \\n[cement6]u
+.  MOVETO \\$1 \\$2
+.  nop \h'\\n[cement3]u'\v'\\n[UNIT]u-\\n[cement3]u'\c
+.  RECT myyellow \\n[cement6]u \\n[cement3]u
+..
+.
+.de TRIANGLE
+.  nr downx (\\$3/2);u
+.  nr rightx (\\$2);u
+.  nop \M[\\$1]\D'P \\n[rightx]u \\n[downx]u -\\n[rightx]u \\n[downx]u '\M[]\c
+.  sp -1
+..
+.
+.de CIRCLE
+.  nop \M[\\$1]\D'C \\$2'\M[]\c
+.  sp -1
+..
+.
+.de DOOR
+.  MOVETO \\$1 \\$2
+.  SQUARE mybrown \\n[UNIT]u
+..
+.de DOORL
+.  MOVETO \\$1 \\$2
+.  SQUARE mybrown \\n[UNIT]u
+.  nr hingew (\\n[UNIT]*2/7);u
+.  MOVETO \\$1 \\$2
+.  RECT mysilver \\n[hingew]u \\n[UNIT]u
+.  MOVETO \\$1 \\$2
+.  nr downd (\\n[UNIT]u*6/14)u
+.  nop \v'\\n[downd]u'\h'\\n[hingew]u'\c
+.  nr hingew (\\n[UNIT]u*3/7);u
+.  nr hingeh (\\n[UNIT]u*2/14);u
+.  TRIANGLE mysilver \\n[hingew]u \\n[hingeh]u
+.  MOVETO \\$1 \\$2
+.  nop \v'\\n[hingeh]u/2u'\v'\\n[downd]u'\h'\\n[hingew]u'\h'\\n[hingew]u/2u'\c
+.  CIRCLE mysilver \\n[hingeh]u'
+..
+.\" .DOORL 1 1
+.\" .DOOR  2 1
+.\" .DOOR  3 1
+.de MAPCHAR
+.  MOVETO \\$1 \\$2
+.  SQUARE default \\n[UNIT]u
+.  MOVETO \\$1 \\$2
+.  nop \\s[32]\v'1.4'\f[CB]\\$3\\s0
+..
+.

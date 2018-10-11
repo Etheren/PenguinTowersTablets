@@ -1,0 +1,2 @@
+.so tmac.map
+.DOOR 1 1

@@ -1,0 +1,43 @@
+2009-11-08       Gaius Mulley <gaius@gnu.org>
+
+	* version.c:  0.5 released.
+	* removed all references to SysVec and changed
+          to RTint.  Also replaced references to PRIORITY
+          with PROTECTION and altered imports.
+
+2009-10-29       Gaius Mulley <gaius@gnu.org>
+
+	* src/SysVec.mod:  removed as it is now in the
+          gm2 release.
+        * Makefile.in:  removed reference to SysVec.mod.
+        * doc/ptower.texi:  updated dates and changed
+          moppsy to mcgreg.
+        * configure:  regenerated via autoconf.
+        * version.c:  0.4 released.
+
+2008-12-01       Gaius Mulley <gaius@gnu.org>
+
+	* many fixes to enable ptower-server to build
+          with gm2-0.68
+
+2007-10-26       Gaius Mulley <gaius@gnu.org>
+
+	* Makefile.in:  now installs the server and maps.
+	* penguin-tower.py:  iterates over 10 successive
+	  socket numbers looking for the server.
+
+2007-10-26       Gaius Mulley <gaius@gnu.org>
+
+	* configure.in:  tests for groff, gm2, flex.
+	* Makefile.in:  now builds the server.
+	* doc/ptower.texi:  utilises the version number in
+	  the building examples.
+	* Makefile.in:  will build outside of the source
+	  tree.
+	* server compiles with gcc-4.1.2 and gm2-0.62
+
+2006-10-27       Gaius Mulley <gaius@gnu.org>
+
+	* added COPYING, README and ChangeLog to CVS
+	* release 0.1
+	* initial checking of the penguin tower sources

@@ -1,0 +1,3 @@
+.so tmac.map
+.MOVETO 1 1
+.SQUARE mywhite \\n[UNIT]u

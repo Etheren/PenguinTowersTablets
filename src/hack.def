@@ -1,0 +1,8 @@
+DEFINITION MODULE hack ;
+
+EXPORT QUALIFIED nonBlocking, ignoreSignals ;
+
+PROCEDURE nonBlocking (fd: INTEGER) : INTEGER ;
+PROCEDURE ignoreSignals ;
+
+END hack.

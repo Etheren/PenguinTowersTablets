@@ -1,0 +1,27 @@
+#!/bin/bash
+
+pids=`ps ax | grep out | grep -v PID | cut -c 0-6`
+if [ "$pids" = "" ] ; then
+   pids=`ps ax | grep gdb | grep -v PID | cut -c 0-6`
+else
+   pids="$pids `ps ax | grep gdb | grep -v PID | cut -c 0-6`"
+fi
+while [ "$pids" != "" ] ; do
+   if [ "$pids" != "" ] ; then
+      echo $pids
+      kill -9 $pids
+   fi
+   pids=`ps ax | grep out | grep -v PID | cut -c 0-6`
+   if [ "$pids" = "" ] ; then
+      pids=`ps ax | grep gdb | grep -v PID | cut -c 0-6`
+   else
+      pids="$pids `ps ax | grep gdb | grep -v PID | cut -c 0-6`"
+   fi
+   if [ "$pids" != "" ] ; then
+      sleep 1
+   fi
+done
+
+export LD_LIBRARY_PATH=/usr/local/lib
+emacs .gdbinit
+

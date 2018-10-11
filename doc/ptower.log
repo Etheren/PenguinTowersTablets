@@ -1,0 +1,196 @@
+This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=etex 2007.9.27)  25 OCT 2007 15:59
+entering extended mode
+ file:line:error style messages enabled.
+**/home/gaius/Sandpit/penguin-tower/doc/ptower.texi
+(/home/gaius/Sandpit/penguin-tower/doc/ptower.texi
+(/usr/share/texmf/tex/texinfo/texinfo.tex
+Loading texinfo [version 2006-02-13.16]: Basics,
+\bindingoffset=\dimen16
+\normaloffset=\dimen17
+\pagewidth=\dimen18
+\pageheight=\dimen19
+\outerhsize=\dimen20
+\outervsize=\dimen21
+\cornerlong=\dimen22
+\cornerthick=\dimen23
+\topandbottommargin=\dimen24
+\headlinebox=\box16
+\footlinebox=\box17
+\margin=\insert252
+\EMsimple=\toks13
+\groupbox=\box18
+\groupinvalidhelp=\toks14
+\mil=\dimen25
+\exdentamount=\skip18
+\inmarginspacing=\skip19
+ pdf,
+\tempnum=\count27
+\lnkcount=\count28
+\filename=\toks15
+\filenamelength=\count29
+\pgn=\count30
+\toksA=\toks16
+\toksB=\toks17
+\toksC=\toks18
+\toksD=\toks19
+\boxA=\box19
+\countA=\count31
+ fonts,
+\sffam=\fam8
+\textleading=\dimen26
+\fontdepth=\count32
+ page headings,
+\titlepagetopglue=\skip20
+\titlepagebottomglue=\skip21
+\evenheadline=\toks20
+\oddheadline=\toks21
+\evenfootline=\toks22
+\oddfootline=\toks23
+
+tables,
+\tableindent=\dimen27
+\itemindent=\dimen28
+\itemmargin=\dimen29
+\itemmax=\dimen30
+\itemno=\count33
+\multitableparskip=\skip22
+\multitableparindent=\skip23
+\multitablecolspace=\dimen31
+\multitablelinespace=\skip24
+\colcount=\count34
+\everytab=\toks24
+ conditionals,
+\doignorecount=\count35
+ indexing,
+\secondaryindent=\skip25
+\partialpage=\box20
+\doublecolumnhsize=\dimen32
+ sectioning,
+\unnumberedno=\count36
+\chapno=\count37
+\secno=\count38
+\subsecno=\count39
+\subsubsecno=\count40
+\appendixno=\count41
+\absseclevel=\count42
+\secbase=\count43
+\chapheadingskip=\skip26
+\secheadingskip=\skip27
+\subsecheadingskip=\skip28
+ toc,
+\tocfile=\write0
+\contentsrightmargin=\skip29
+\savepageno=\count44
+\lastnegativepageno=\count45
+\tocindent=\dimen33
+ environments,
+\errorbox=\box21
+\lispnarrowing=\skip30
+\envskipamount=\skip31
+\circthick=\dimen34
+\cartouter=\dimen35
+\cartinner=\dimen36
+\normbskip=\skip32
+\normpskip=\skip33
+\normlskip=\skip34
+\lskip=\skip35
+\rskip=\skip36
+\tabw=\dimen37
+ defuns,
+\defbodyindent=\skip37
+\defargsindent=\skip38
+\deflastargmargin=\skip39
+\parencount=\count46
+\brackcount=\count47
+ macros,
+\paramno=\count48
+\macname=\toks25
+
+cross references,
+\auxfile=\write1
+\savesfregister=\count49
+ insertions,
+\footnoteno=\count50
+\SAVEfootins=\box22
+\SAVEmargin=\box23
+ (/usr/share/texmf-tetex/tex/generic/epsf/epsf.tex
+\epsffilein=\read1
+\epsfframemargin=\dimen38
+\epsfframethickness=\dimen39
+\epsfrsize=\dimen40
+\epsftmp=\dimen41
+\epsftsize=\dimen42
+\epsfxsize=\dimen43
+\epsfysize=\dimen44
+\pspoints=\dimen45
+\epsfnoopenhelp=\toks26
+)
+\noepsfhelp=\toks27
+ localization,
+\nolanghelp=\toks28
+\defaultparindent=\dimen46
+ and turning on texinfo input format.) (./ptower.aux)
+\openout1 = `ptower.aux'.
+
+@cpindfile=@write2
+@fnindfile=@write3
+@vrindfile=@write4
+@tpindfile=@write5
+@kyindfile=@write6
+@pgindfile=@write7
+
+(./version.texi) [1
+\openout2 = `ptower.cp'.
+
+\openout3 = `ptower.fn'.
+
+\openout4 = `ptower.vr'.
+
+\openout5 = `ptower.tp'.
+
+\openout6 = `ptower.ky'.
+
+\openout7 = `ptower.pg'.
+
+] [2] (./ptower.toc) [-1] Chapter 1
+\openout0 = `ptower.toc'.
+
+
+Overfull \hbox (1.85208pt too wide) in paragraph at lines 67--72
+@textrm late 1970s, Mor-loc Tower @texttt http://www.mobygames.com/game/dunjonq
+uest-morlocs-tower[]|
+
+@hbox(7.60416+2.43333)x433.62, glue set - 1.0
+.@textrm l
+.@textrm a
+.@textrm t
+.@textrm e
+.@glue 3.65 plus 1.825 minus 1.21666
+.etc.
+
+Chapter 2 [1]
+Overfull \hbox (221.61113pt too wide) in paragraph at lines 81--85
+[]@textrm You can down-load a copy of the game from @texttt http://floppsie.com
+p.glam.ac.uk/download/penguin-tower/penguin-tower-0.2.tar.gz[]|
+
+@hbox(7.60416+2.43333)x433.62, glue set - 1.0
+.@hbox(0.0+0.0)x15.0
+.@kern -15.0
+.@textrm Y
+.@kern-0.91252
+.@textrm o
+.etc.
+
+Chapter 3 [2] Chapter 4 [3] [4] [5] [6] Appendix A [7] (./fdl.texi
+(GNU Free Documentation License) [8] [9] [10] [11] [12] [13] [14]) (Index)
+[15] (./ptower.cps) [16] ) 
+Here is how much of TeX's memory you used:
+ 1486 strings out of 97342
+ 16472 string characters out of 1211771
+ 37614 words of memory out of 1000000
+ 2571 multiletter control sequences out of 10000+50000
+ 32127 words of font info for 112 fonts, out of 500000 for 2000
+ 51 hyphenation exceptions out of 8191
+ 15i,6n,23p,273b,409s stack positions out of 1500i,500n,5000p,200000b,5000s
+
+Output written on ptower.dvi (19 pages, 43360 bytes).

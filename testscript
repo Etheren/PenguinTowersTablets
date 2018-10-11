@@ -1,0 +1,71 @@
+pS start
+sync
+clear
+dMap tower
+dN fred
+dR 5
+hwall 1 10 10 10
+hwall 11 10 20 10
+vwall 10 1 10 10
+vdoor 10 5 10 6
+vhinge 10 7
+hwall 1 1 10 1
+vwall 1 1 1 10
+vwall 1 11 1 20
+hdoor 5 1 6 1
+hhinge 4 1
+wman 4 4
+treasure 2 2
+dCMD f Normal
+dF 100
+dW 100
+dM 2
+dA 7
+ps snore
+dCMD u Use
+pS fuse
+pS fuse
+pS fuse
+nman 4 4
+pS ohno
+dW 100
+wman 4 4
+dW 100
+sman 4 4
+Sman 3 3
+Eman 3 3
+Nman 3 3
+Wman 3 3
+pS evillaugh
+dF 90
+eman 4 4
+pS explode
+dF 80
+dF 70
+pS applause
+dF 66
+pS arrowmiss
+dA 6
+dW 90
+pS arrowmiss
+pS arrowmiss
+pS arrowmiss
+pS arrowmiss
+pS brokenglass
+pS brokenglass
+pS brokenglass
+pS brokenglass
+pS brokenglass
+pS brokenglass
+pS brokenglass
+pS brokenglass
+pS explode
+pS explode
+pS explode
+dM 1
+dW 55
+pS exit
+dW 0
+eL 4 4
+dC 1 died from
+dC 2 hand grenade
