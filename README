@@ -1,2 +1,16 @@
+This is the Dissertation for Uni of South Wales Student No. 14040859.
+
+The aim of this project is to take an Isometric 3D version of the game Penguin Towers (A Multiplayer game inspired by Morloc Tower from the 1970s,
+and expand the touch screen interface so that it can be considered playable on a Tablet Device.
+
+I'll be using this README File to outline all current and future goals to showcase my progress in this project.
+It'll be updated with new goals, as well as showcasing what has been completed. Watch this Space
+
+CURRENT GOALS :-
+Examine the current files to detect what progress has been currently made and what is missing.
+Play around with the demo to see what the current UI looks like.
+Research for tools to expand the touch screen interface.
+Research for tools to allow the game to run on a Tablet based OS (Android most likely).
+
 Please see doc/penguin-tower.info, doc/ptower.texi, doc/ptower.html or
 doc/ptower.pdf for details about this package.
