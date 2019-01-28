@@ -86,10 +86,10 @@ def text_objects (text, font, colour = white):
 tile_frozen, tile_active, tile_activated, tile_pressed = range (4)
 
 class text_tile:
-    def __init__ (self, default_colour, activated_colour, pressed_colour, frozen_colour,
-                  text_message, text_size,
-                  x, y, width, height, action=None, flush=None):
-        # the _colour list must be in this order (the same as the tile_state above)
+    def __init__ (self, default_colour, activated_colour, pressed_colour, frozen_colour,    #Draws a text box, and needs the following params :
+                  text_message, text_size,                                                  #The standard colour of the box, the "activated" colour, the colour when the button is pressed, the "frozen" colour
+                  x, y, width, height, action=None, flush=None):                            #The text in the box (Must be in between "X"), Size of the text 0-1, the location of the box on the screen (what point does this relate to?)
+        # the _colour list must be in this order (the same as the tile_state above)         #The size of the box, what the button does when pressed (defaulted to nothing), "flush" (defaults to nothing)
         self._colours = [frozen_colour, default_colour, activated_colour, pressed_colour]
         self._x = x
         self._y = y
@@ -283,9 +283,9 @@ class image_gui:
 
 
 class image_tile:
-    def __init__ (self, image_list,
-                  x, y, width, height, action=None, flush=None):
-        #  the _image list must be in this order (the same as the tile_state above)
+    def __init__ (self, image_list,                                                   #create an image button, needs an image list created in a file, location and size of the image, what happens when pressed, then "flush"
+                  x, y, width, height, action=None, flush=None):                      #Similar to the text box, but requires a bit more input, especially needing to load an image into the program
+        #  the _image list must be in this order (the same as the tile_state above)   #(Check image_list in penguin.py. uses image_gui constructor located in this file.)
         self._images = image_list
         self._x = x
         self._y = y

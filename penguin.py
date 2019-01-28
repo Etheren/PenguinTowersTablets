@@ -88,8 +88,8 @@ def main ():
     pygame.display.set_caption ("Penguin Tower")
     touchgui.set_display (gameDisplay, display_width, display_height)
     isoobject.set_display (gameDisplay, display_width, display_height)
-    key_pad = [touchgui.form ([touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
-                                                   "1", touchgui.unitY (0.05),
+    key_pad = [touchgui.form ([touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,       #Numbers placed on the bottom right of the screen. Perhaps merge into a single movement?
+                                                   "1", touchgui.unitY (0.05),                               #Calls text_tile. Seems to create a simple box with text.
                                                    touchgui.posX (0), touchgui.posY (0.05),
                                                    touchgui.unitX (0.045), touchgui.unitY (0.045)),
                                touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
@@ -126,15 +126,15 @@ def main ():
                                                    touchgui.unitX (0.045), touchgui.unitY (0.045)),
     ])]
 
-    tabletOrMouse = touchgui.image_tile (image_list ("tablet"),
-                                         touchgui.posX (0.1), touchgui.posY (1.0),
+    tabletOrMouse = touchgui.image_tile (image_list ("tablet"),                     #As far as i'm aware, this hides the mouse. Probably expects a touch input to be equivalent to a mouse click
+                                         touchgui.posX (0.1), touchgui.posY (1.0),  #Calls image_tile. Seems to create a "blank" box with an image. Needs to be transparent otherwise we get a background?
                                          100, 100, flipMouseTablet)
 
-    audio = touchgui.image_tile (image_list ("audioOn"),
+    audio = touchgui.image_tile (image_list ("audioOn"),                            #Determine whether Audio will be played or not
                                  touchgui.posX (0.0), touchgui.posY (1.0),
                                  100, 100, flipAudio)
 
-    signal = touchgui.image_tile (image_list ("signal1"),
+    signal = touchgui.image_tile (image_list ("signal1"),                           #Perhaps showcases Wi-Fi signal strength.
                                   touchgui.posX (0.15), touchgui.posY (1.0),
                                   100, 100, orient270)
 
@@ -145,11 +145,11 @@ def main ():
                                  100, 100, orient270)
     """
 
-    controls = [touchgui.form ([touchgui.image_tile (image_list ("power"),
+    controls = [touchgui.form ([touchgui.image_tile (image_list ("power"),          #Power Button, to shut the app down. OR perhaps just use the tablet's OS to shut the app down?
                                                      touchgui.posX (0.95), touchgui.posY (1.0),
                                                      100, 100, myquit),
 
-                                touchgui.image_tile (image_list ("upLeft"),
+                                touchgui.image_tile (image_list ("upLeft"),         #orients the screen around. Perhaps merge them for a single rotate depending on current direction?
                                                      touchgui.posX (0.90), touchgui.posY (0.20),
                                                      100, 100, orient0),
 
@@ -167,7 +167,7 @@ def main ():
 
                                 audio,
 
-                                touchgui.image_tile (image_list ("singleplayer"),
+                                touchgui.image_tile (image_list ("singleplayer"),   #Supposedly disconnects/connects the player to a server?
                                                      touchgui.posX (0.05), touchgui.posY (1.0),
                                                      100, 100, orient270),
 
@@ -176,7 +176,7 @@ def main ():
     ])]
 
     forms = key_pad + controls
-    isoobject.testRoom ()
+    isoobject.testRoom ()                  #Renders a basic 3D room for us
     touchgui.select (forms, myquit)
 
 
