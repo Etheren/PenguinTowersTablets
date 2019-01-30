@@ -79,7 +79,8 @@ def main ():
 
     pygame.init ()
     if full_screen:
-        gameDisplay = pygame.display.set_mode ((display_width, display_height), FULLSCREEN)
+        #gameDisplay = pygame.display.set_mode ((display_width, display_height), FULLSCREEN)
+		gameDisplay = pygame.display.set_mode ((display_width, display_height))
     else:
         gameDisplay = pygame.display.set_mode ((display_width, display_height))
 

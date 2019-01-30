@@ -6,11 +6,17 @@ and expand the touch screen interface so that it can be considered playable on a
 I'll be using this README File to outline all current and future goals to showcase my progress in this project.
 It'll be updated with new goals, as well as showcasing what has been completed. Watch this Space
 
-CURRENT GOALS :-
-Examine the current files to detect what progress has been currently made and what is missing.
-Play around with the demo to see what the current UI looks like.
-Research for tools to expand the touch screen interface.
-Research for tools to allow the game to run on a Tablet based OS (Android most likely).
+30/01/2019:-
+
+Layout wise, the current program has orientation in the bottom right
+Movement forward using a 9 digit numpad in the bottom left.
+Top Right has the "Power" Button,
+Top Left has other functions like mouse/tablet mode, signal strength etc.
+
+The image "RoughDesign.jpg" showcases a rough design for the layout (Wrote on the whiteboard in J106) for the UI.
+The design is movement in the bottom left, items in the middle, actions such as chest opening or attacks (which switches around),
+power remaining in the top right, and space for anything else in the top right.
+
 
 Please see doc/penguin-tower.info, doc/ptower.texi, doc/ptower.html or
 doc/ptower.pdf for details about this package.
