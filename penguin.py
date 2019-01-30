@@ -12,6 +12,8 @@ isTablet, tabletOrMouse = False, None
 isAudio, audio = True, None
 signal_level, signal = 3, None
 orig_mouse_pointer = None
+attack_mode = False
+
 
 toggle_delay = 250
 
@@ -33,6 +35,38 @@ def orient180 ():
 
 def orient270 ():
     isoobject.screen_orientation (270)
+	
+def orient_left ():
+    can_rotate = 1
+    if current_orientation == 0 and can_rotate == 1:
+		orient270 ()
+		can_rotate = 0
+    elif current_orientation == 270 and can_rotate == 1:
+		orient180 ()
+		can_rotate = 0
+    elif current_orientation == 180 and can_rotate == 1:
+		orient90 ()
+		can_rotate = 0
+    elif current_orientation == 90 and can_rotate == 1:
+		orient0 ()
+		can_rotate = 0
+    can_rotate = 1
+		
+def orient_right ():
+    can_rotate = 1
+    if current_orientation == 0 and can_rotate == 1:
+		orient90 (can_rotate)
+		current_orientation = 90
+    if current_orientation == 90 and can_rotate == 1:
+		orient180 (can_rotate)
+		current_orientation = 180
+    if current_orientation == 180 and can_rotate == 1:
+		orient270 (can_rotate)
+		current_orientation = 270
+    if current_orientation == 270 and can_rotate == 1:
+        orient0 ()
+        current_orientation = 0
+ 
 
 def image_list (name):
     return [touchgui.image_gui ("images/PNG/White/2x/%s.png" % (name)).white2grey (.5),
@@ -150,21 +184,21 @@ def main ():
                                                      touchgui.posX (0.95), touchgui.posY (1.0),
                                                      100, 100, myquit),
 
-                                touchgui.image_tile (image_list ("upLeft"),         #orients the screen around. Perhaps merge them for a single rotate depending on current direction?
+                                touchgui.image_tile (image_list ("arrowUp"),         #orients the screen around. Perhaps merge them for a single rotate depending on current direction?
                                                      touchgui.posX (0.90), touchgui.posY (0.20),
-                                                     100, 100, orient0),
+                                                     100, 100),
 
-                                touchgui.image_tile (image_list ("upRight"),
+                                touchgui.image_tile (image_list ("arrowLeft"),
                                                      touchgui.posX (0.95), touchgui.posY (0.20),
-                                                     100, 100, orient90),
+                                                     100, 100, orient_left),
 
-                                touchgui.image_tile (image_list ("downLeft"),
+                                touchgui.image_tile (image_list ("arrowRight"),
                                                      touchgui.posX (0.90), touchgui.posY (0.10),
-                                                     100, 100, orient180),
+                                                     100, 100, orient_right),
 
-                                touchgui.image_tile (image_list ("downRight"),
+                                touchgui.image_tile (image_list ("arrowDown"),
                                                      touchgui.posX (0.95), touchgui.posY (0.10),
-                                                     100, 100, orient270),
+                                                     100, 100),
 
                                 audio,
 
