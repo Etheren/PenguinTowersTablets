@@ -13,6 +13,7 @@ isAudio, audio = True, None
 signal_level, signal = 3, None
 orig_mouse_pointer = None
 attack_mode = False
+current_orientation = 0
 
 
 toggle_delay = 250
@@ -37,34 +38,51 @@ def orient270 ():
     isoobject.screen_orientation (270)
 	
 def orient_left ():
-    can_rotate = 1
-    if current_orientation == 0 and can_rotate == 1:
+    can_rotate = True
+    global current_orientation
+    if current_orientation == 0 and can_rotate == True:
 		orient270 ()
-		can_rotate = 0
-    elif current_orientation == 270 and can_rotate == 1:
+		print ("rotated to 270")
+		can_rotate = False
+		current_orientation = 270
+    elif current_orientation == 270 and can_rotate == True:
 		orient180 ()
-		can_rotate = 0
-    elif current_orientation == 180 and can_rotate == 1:
+		print ("rotated to 180")
+		can_rotate = False
+		current_orientation = 180
+    elif current_orientation == 180 and can_rotate == True:
 		orient90 ()
-		can_rotate = 0
-    elif current_orientation == 90 and can_rotate == 1:
+		print ("rotated to 90")
+		can_rotate = False
+		current_orientation = 90
+    elif current_orientation == 90 and can_rotate == True:
 		orient0 ()
-		can_rotate = 0
-    can_rotate = 1
+		print ("rotated to 0")
+		can_rotate = False
+		current_orientation = 0
 		
 def orient_right ():
-    can_rotate = 1
-    if current_orientation == 0 and can_rotate == 1:
-		orient90 (can_rotate)
+    can_rotate = True
+    global current_orientation
+    if current_orientation == 0 and can_rotate == True:
+		orient90 ()
+		print ("rotated to 90")
+		can_rotate = False
 		current_orientation = 90
-    if current_orientation == 90 and can_rotate == 1:
-		orient180 (can_rotate)
+    if current_orientation == 90 and can_rotate == True:
+		orient180 ()
+		print ("rotated to 180")
+		can_rotate = False
 		current_orientation = 180
     if current_orientation == 180 and can_rotate == 1:
-		orient270 (can_rotate)
+		orient270 ()
+		print ("rotated to 270")
+		can_rotate = False
 		current_orientation = 270
     if current_orientation == 270 and can_rotate == 1:
         orient0 ()
+        print ("rotated to 0")
+        can_rotate = False
         current_orientation = 0
  
 
