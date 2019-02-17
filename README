@@ -17,6 +17,9 @@ The image "RoughDesign.jpg" showcases a rough design for the layout (Wrote on th
 The design is movement in the bottom left, items in the middle, actions such as chest opening or attacks (which switches around),
 power remaining in the top right, and space for anything else in the top right.
 
+The left and Right buttons SHOULD now rotate around when constantly pressed, but however sticks at 90 and 270 degrees. Needs fixing somehow,
+but not entirely sure how to
+
 
 Please see doc/penguin-tower.info, doc/ptower.texi, doc/ptower.html or
 doc/ptower.pdf for details about this package.
