@@ -14,6 +14,7 @@ signal_level, signal = 3, None
 orig_mouse_pointer = None
 attack_mode = False
 current_orientation = 0
+can_rotate = True
 
 
 toggle_delay = 250
@@ -38,8 +39,8 @@ def orient270 ():
     isoobject.screen_orientation (270)
 	
 def orient_left ():
+    global current_orientation, can_rotate
     can_rotate = True
-    global current_orientation
     if current_orientation == 0 and can_rotate == True:
 		orient270 ()
 		print ("rotated to 270")
@@ -62,6 +63,7 @@ def orient_left ():
 		current_orientation = 0
 		
 def orient_right ():
+    global current_orientation, can_rotate
     can_rotate = True
     global current_orientation
     if current_orientation == 0 and can_rotate == True:
@@ -84,6 +86,31 @@ def orient_right ():
         print ("rotated to 0")
         can_rotate = False
         current_orientation = 0
+        
+def orient_back ():
+    global current_orientation, can_rotate
+    can_rotate = True
+    global current_orientation
+    if current_orientation == 0 and can_rotate == True:
+		orient180 ()
+		print ("rotated to 180")
+		can_rotate = False
+		current_orientation = 180
+    if current_orientation == 90 and can_rotate == True:
+		orient270 ()
+		print ("rotated to 270")
+		can_rotate = False
+		current_orientation = 270
+    if current_orientation == 180 and can_rotate == 1:
+		orient0 ()
+		print ("rotated to 0")
+		can_rotate = False
+		current_orientation = 0
+    if current_orientation == 270 and can_rotate == 1:
+        orien90 ()
+        print ("rotated to 90")
+        can_rotate = False
+        current_orientation = 90
  
 
 def image_list (name):
@@ -141,6 +168,7 @@ def main ():
     pygame.display.set_caption ("Penguin Tower")
     touchgui.set_display (gameDisplay, display_width, display_height)
     isoobject.set_display (gameDisplay, display_width, display_height)
+    '''
     key_pad = [touchgui.form ([touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,       #Numbers placed on the bottom right of the screen. Perhaps merge into a single movement?
                                                    "1", touchgui.unitY (0.05),                               #Calls text_tile. Seems to create a simple box with text.
                                                    touchgui.posX (0), touchgui.posY (0.05),
@@ -178,6 +206,7 @@ def main ():
                                                    touchgui.posX (0.1), touchgui.posY (0.15),
                                                    touchgui.unitX (0.045), touchgui.unitY (0.045)),
     ])]
+    '''
 
     tabletOrMouse = touchgui.image_tile (image_list ("tablet"),                     #As far as i'm aware, this hides the mouse. Probably expects a touch input to be equivalent to a mouse click
                                          touchgui.posX (0.1), touchgui.posY (1.0),  #Calls image_tile. Seems to create a "blank" box with an image. Needs to be transparent otherwise we get a background?
@@ -203,20 +232,20 @@ def main ():
                                                      100, 100, myquit),
 
                                 touchgui.image_tile (image_list ("arrowUp"),         #orients the screen around. Perhaps merge them for a single rotate depending on current direction?
-                                                     touchgui.posX (0.90), touchgui.posY (0.20),
+                                                     touchgui.posX (0.05), touchgui.posY (0.30),
                                                      100, 100),
 
                                 touchgui.image_tile (image_list ("arrowLeft"),
-                                                     touchgui.posX (0.95), touchgui.posY (0.20),
+                                                     touchgui.posX (0.00), touchgui.posY (0.20),
                                                      100, 100, orient_left),
 
                                 touchgui.image_tile (image_list ("arrowRight"),
-                                                     touchgui.posX (0.90), touchgui.posY (0.10),
+                                                     touchgui.posX (0.10), touchgui.posY (0.20),
                                                      100, 100, orient_right),
 
                                 touchgui.image_tile (image_list ("arrowDown"),
-                                                     touchgui.posX (0.95), touchgui.posY (0.10),
-                                                     100, 100),
+                                                     touchgui.posX (0.05), touchgui.posY (0.10),
+                                                     100, 100, orient_back),
 
                                 audio,
 
@@ -228,7 +257,7 @@ def main ():
 
     ])]
 
-    forms = key_pad + controls
+    forms = controls
     isoobject.testRoom ()                  #Renders a basic 3D room for us
     touchgui.select (forms, myquit)
 
