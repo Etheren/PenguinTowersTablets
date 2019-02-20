@@ -10,15 +10,17 @@ full_screen = False
 full_screen = True
 isTablet, tabletOrMouse = False, None
 isAudio, audio = True, None
+isCombat, combat_mode = True, None
 signal_level, signal = 3, None
 orig_mouse_pointer = None
 attack_mode = False
 current_orientation = 0
-#can_rotate = True
+can_rotate = True
 
 
 toggle_delay = 250
 
+white = (255, 255, 255)
 
 def myquit ():
     pygame.display.update ()
@@ -37,7 +39,7 @@ def orient180 ():
 
 def orient270 ():
     isoobject.screen_orientation (270)
-	
+
 def orient_left ():
     global current_orientation
     can_rotate = True
@@ -61,7 +63,7 @@ def orient_left ():
 		print ("rotated to 0 left")
 		can_rotate = False
 		current_orientation = 0
-		
+
 def orient_right ():
     global current_orientation
     can_rotate = True
@@ -85,7 +87,7 @@ def orient_right ():
         print ("rotated to 0 right")
         can_rotate = False
         current_orientation = 0
-        
+
 def orient_back ():
     global current_orientation, can_rotate
     can_rotate = True
@@ -110,13 +112,21 @@ def orient_back ():
         print ("rotated to 90")
         can_rotate = False
         current_orientation = 90
- 
+
 
 def image_list (name):
     return [touchgui.image_gui ("images/PNG/White/2x/%s.png" % (name)).white2grey (.5),
             touchgui.image_gui ("images/PNG/White/2x/%s.png" % (name)).white2grey (.1),
             touchgui.image_gui ("images/PNG/White/2x/%s.png" % (name)),
             touchgui.image_gui ("images/PNG/White/2x/%s.png" % (name)).white2rgb (.1, .2, .4)]
+
+def combat_list (name):
+    return [touchgui.image_gui ("images/%s.png" % (name)).white2grey (.5),
+            touchgui.image_gui ("images/%s.png" % (name)).white2grey (.1),
+            touchgui.image_gui ("images/%s.png" % (name)),
+            touchgui.image_gui ("images/%s.png" % (name)).white2rgb (.1, .2, .4)]
+
+
 
 def flipAudio ():
     global isAudio, audio
@@ -150,12 +160,17 @@ def signal_value (n):
     global signal_level, signal
     signal_level = n
     signal.set_images (image_list ("signal%d" % (n)))
+    
+def test_ping ():
+    print ("I'm a button that works when clicked!")
 
 
 def main ():
-    global tabletOrMouse, audio, orig_mouse_pointer
+    global tabletOrMouse, audio, orig_mouse_pointer, combat_mode, white
 
     pygame.init ()
+    pygame.font.init()
+    textfont = pygame.font.SysFont("monospace", 15)
     if full_screen:
         #gameDisplay = pygame.display.set_mode ((display_width, display_height), FULLSCREEN)
 		gameDisplay = pygame.display.set_mode ((display_width, display_height))
@@ -167,45 +182,6 @@ def main ():
     pygame.display.set_caption ("Penguin Tower")
     touchgui.set_display (gameDisplay, display_width, display_height)
     isoobject.set_display (gameDisplay, display_width, display_height)
-    '''
-    key_pad = [touchgui.form ([touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,       #Numbers placed on the bottom right of the screen. Perhaps merge into a single movement?
-                                                   "1", touchgui.unitY (0.05),                               #Calls text_tile. Seems to create a simple box with text.
-                                                   touchgui.posX (0), touchgui.posY (0.05),
-                                                   touchgui.unitX (0.045), touchgui.unitY (0.045)),
-                               touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
-                                                   "2", touchgui.unitY (0.05),
-                                                   touchgui.posX (0.05), touchgui.posY (0.05),
-                                                   touchgui.unitX (0.045), touchgui.unitY (0.045)),
-                               touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
-                                                   "3", touchgui.unitY (0.05),
-                                                   touchgui.posX (0.1), touchgui.posY (0.05),
-                                                   touchgui.unitX (0.045), touchgui.unitY (0.045)),
-                               touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
-                                                   "4", touchgui.unitY (0.05),
-                                                   touchgui.posX (0), touchgui.posY (0.1),
-                                                   touchgui.unitX (0.045), touchgui.unitY (0.045)),
-                               touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
-                                                   "5", touchgui.unitY (0.05),
-                                                   touchgui.posX (0.05), touchgui.posY (0.1),
-                                                   touchgui.unitX (0.045), touchgui.unitY (0.045)),
-                               touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
-                                                   "6", touchgui.unitY (0.05),
-                                                   touchgui.posX (0.1), touchgui.posY (0.1),
-                                                   touchgui.unitX (0.045), touchgui.unitY (0.045)),
-                               touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
-                                                   "7", touchgui.unitY (0.05),
-                                                   touchgui.posX (0), touchgui.posY (0.15),
-                                                   touchgui.unitX (0.045), touchgui.unitY (0.045)),
-                               touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
-                                                   "8", touchgui.unitY (0.05),
-                                                   touchgui.posX (0.05), touchgui.posY (0.15),
-                                                   touchgui.unitX (0.045), touchgui.unitY (0.045)),
-                               touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
-                                                   "9", touchgui.unitY (0.05),
-                                                   touchgui.posX (0.1), touchgui.posY (0.15),
-                                                   touchgui.unitX (0.045), touchgui.unitY (0.045)),
-    ])]
-    '''
 
     tabletOrMouse = touchgui.image_tile (image_list ("tablet"),                     #As far as i'm aware, this hides the mouse. Probably expects a touch input to be equivalent to a mouse click
                                          touchgui.posX (0.1), touchgui.posY (1.0),  #Calls image_tile. Seems to create a "blank" box with an image. Needs to be transparent otherwise we get a background?
@@ -226,7 +202,13 @@ def main ():
                                  100, 100, orient270)
     """
 
-    controls = [touchgui.form ([touchgui.image_tile (image_list ("power"),          #Power Button, to shut the app down. OR perhaps just use the tablet's OS to shut the app down?
+    combat_mode = [touchgui.form ([touchgui.image_tile(combat_list ("bombresize"), touchgui.posX (0.95), touchgui.posY (0.1), 100, 100, test_ping),
+                                   touchgui.image_tile(combat_list ("arrowresize"), touchgui.posX (0.95), touchgui.posY (0.3), 100, 100, test_ping),
+                                   touchgui.image_tile(combat_list ("slashresize"), touchgui.posX (0.95), touchgui.posY (0.5), 100, 100, test_ping),
+                                   touchgui.image_tile(image_list ("cross"), touchgui.posX (0.95), touchgui.posY (0.7), 100, 100, test_ping)]
+)]
+
+    controls = [touchgui.form ([touchgui.image_tile (image_list ("power"), #Power Button, to shut the app down. OR perhaps just use the tablet's OS to shut the app down?
                                                      touchgui.posX (0.95), touchgui.posY (1.0),
                                                      100, 100, myquit),
 
@@ -240,7 +222,7 @@ def main ():
 
     ])]
 
-    movement_arrows = [touchgui.form ([touchgui.image_tile (image_list ("arrowUp"),    
+    movement_arrows = [touchgui.form ([touchgui.image_tile (image_list ("arrowUp"),
                                                      touchgui.posX (0.05), touchgui.posY (0.30),
                                                      100, 100),
 
@@ -261,8 +243,10 @@ def main ():
                                                      100, 100, orient270),
 
     ])]
+    
+    label = textfont.render("TEST", 1 , white)
 
-    forms = controls + movement_arrows
+    forms = controls + movement_arrows + combat_mode
     isoobject.testRoom ()                  #Renders a basic 3D room for us
     touchgui.select (forms, myquit)
 

@@ -18,7 +18,12 @@ The design is movement in the bottom left, items in the middle, actions such as 
 power remaining in the top right, and space for anything else in the top right.
 
 The left and Right buttons SHOULD now rotate around when constantly pressed, but however sticks at 90 and 270 degrees. Needs fixing somehow,
-but not entirely sure how to
+but not entirely sure how to.
+
+20/02/2019:-
+
+Figured out WHY when clicking a button the action repeats a few times. 
+Apparently holding down the mouse key and moving the mouse around can cause a VERY large amount of actions to happen back to back as long as the mouse key is being held. This WILL need the select function in touchgui (the one with the forms and quit parameters) to be modified so that it ONLY ever does that once per click.
 
 
 Please see doc/penguin-tower.info, doc/ptower.texi, doc/ptower.html or
