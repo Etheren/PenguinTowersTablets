@@ -14,7 +14,7 @@ signal_level, signal = 3, None
 orig_mouse_pointer = None
 attack_mode = False
 current_orientation = 0
-can_rotate = True
+#can_rotate = True
 
 
 toggle_delay = 250
@@ -39,51 +39,50 @@ def orient270 ():
     isoobject.screen_orientation (270)
 	
 def orient_left ():
-    global current_orientation, can_rotate
+    global current_orientation
     can_rotate = True
     if current_orientation == 0 and can_rotate == True:
 		orient270 ()
-		print ("rotated to 270")
+		print ("rotated to 270 left")
 		can_rotate = False
 		current_orientation = 270
     elif current_orientation == 270 and can_rotate == True:
 		orient180 ()
-		print ("rotated to 180")
+		print ("rotated to 180 left")
 		can_rotate = False
 		current_orientation = 180
     elif current_orientation == 180 and can_rotate == True:
 		orient90 ()
-		print ("rotated to 90")
+		print ("rotated to 90 left")
 		can_rotate = False
 		current_orientation = 90
     elif current_orientation == 90 and can_rotate == True:
 		orient0 ()
-		print ("rotated to 0")
+		print ("rotated to 0 left")
 		can_rotate = False
 		current_orientation = 0
 		
 def orient_right ():
-    global current_orientation, can_rotate
-    can_rotate = True
     global current_orientation
+    can_rotate = True
     if current_orientation == 0 and can_rotate == True:
 		orient90 ()
-		print ("rotated to 90")
+		print ("rotated to 90 right")
 		can_rotate = False
 		current_orientation = 90
-    if current_orientation == 90 and can_rotate == True:
+    elif current_orientation == 90 and can_rotate == True:
 		orient180 ()
-		print ("rotated to 180")
+		print ("rotated to 180 right")
 		can_rotate = False
 		current_orientation = 180
-    if current_orientation == 180 and can_rotate == 1:
+    elif current_orientation == 180 and can_rotate == True:
 		orient270 ()
-		print ("rotated to 270")
+		print ("rotated to 270 right")
 		can_rotate = False
 		current_orientation = 270
-    if current_orientation == 270 and can_rotate == 1:
+    elif current_orientation == 270 and can_rotate == True:
         orient0 ()
-        print ("rotated to 0")
+        print ("rotated to 0 right")
         can_rotate = False
         current_orientation = 0
         
@@ -107,7 +106,7 @@ def orient_back ():
 		can_rotate = False
 		current_orientation = 0
     if current_orientation == 270 and can_rotate == 1:
-        orien90 ()
+        orient90 ()
         print ("rotated to 90")
         can_rotate = False
         current_orientation = 90
@@ -231,7 +230,17 @@ def main ():
                                                      touchgui.posX (0.95), touchgui.posY (1.0),
                                                      100, 100, myquit),
 
-                                touchgui.image_tile (image_list ("arrowUp"),         #orients the screen around. Perhaps merge them for a single rotate depending on current direction?
+                                audio,
+
+                                touchgui.image_tile (image_list ("singleplayer"),   #Supposedly disconnects/connects the player to a server?
+                                                     touchgui.posX (0.05), touchgui.posY (1.0),
+                                                     100, 100, orient270),
+
+                                tabletOrMouse, signal,
+
+    ])]
+
+    movement_arrows = [touchgui.form ([touchgui.image_tile (image_list ("arrowUp"),    
                                                      touchgui.posX (0.05), touchgui.posY (0.30),
                                                      100, 100),
 
@@ -247,17 +256,13 @@ def main ():
                                                      touchgui.posX (0.05), touchgui.posY (0.10),
                                                      100, 100, orient_back),
 
-                                audio,
-
                                 touchgui.image_tile (image_list ("singleplayer"),   #Supposedly disconnects/connects the player to a server?
                                                      touchgui.posX (0.05), touchgui.posY (1.0),
                                                      100, 100, orient270),
 
-                                tabletOrMouse, signal,
-
     ])]
 
-    forms = controls
+    forms = controls + movement_arrows
     isoobject.testRoom ()                  #Renders a basic 3D room for us
     touchgui.select (forms, myquit)
 

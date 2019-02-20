@@ -65,13 +65,13 @@ def rotate_object (angle, c):
 def rotate_contents (angle):
     global contents
     if angle != 0:
-        print contents
-        print "rotate the contents by", angle
+        #print contents
+        #print "rotate the contents by", angle
         new_contents = []
         for c in contents:
             new_contents += [rotate_object (angle, c)]
         contents = new_contents
-        print contents
+        #print contents
         render_screen ()
 
 
@@ -231,7 +231,7 @@ def do_render_wall (start_pos, end_pos, completed_room, horizontal):
         return completed_room
     completed_room += [["wall", [start_pos, end_pos]]]
     line (horizontal, start_pos[0], start_pos[1], end_pos[0], end_pos[1])
-    print "wall line", start_pos, end_pos
+    #print "wall line", start_pos, end_pos
     return completed_room
 
 
@@ -342,17 +342,17 @@ def do_render_door (d, horizontal):
 def build_horiz_wall (c, completed_room):
     start_pos = None
     last_pos = None
-    print "completed_room", completed_room
+    #print "completed_room", completed_room
     for x in range (c[1][0][0], c[1][1][0]+1):
-        print "horiz: wall position", x, c[1][0][1],
+        #print "horiz: wall position", x, c[1][0][1],
         if is_on (x, c[1][0][1], completed_room):
-            print "already present", x, c[1][0][1], "is on", completed_room
+            #print "already present", x, c[1][0][1], "is on", completed_room
             # finished this wall segment
             completed_room = do_render_wall (start_pos, last_pos, completed_room, True)
             start_pos = None
             last_pos = None
         else:
-            print "will be added"
+            #print "will be added"
             last_pos = [x, c[1][0][1]]
             if start_pos == None:
                 start_pos = [x, c[1][0][1]]
@@ -367,7 +367,7 @@ def build_vert_wall (c, completed_room):
     start_pos = None
     last_pos = None
     for y in range (c[1][0][1], c[1][1][1]+1):
-        print "vert: wall position", c[1][0][0], y
+        #print "vert: wall position", c[1][0][0], y
         if is_on (c[1][0][0], y, completed_room):
             # finished this wall segment
             completed_room = do_render_wall (start_pos, last_pos, completed_room, False)
@@ -454,11 +454,11 @@ def render_room_internals ():
 def render_room ():
     render_room_internals ()
     completed_room = render_doors ()
-    print "contents =", contents
+    #print "contents =", contents
     for c in contents:
-        print "completed_room", completed_room
+        #print "completed_room", completed_room
         if is_wall (c):
-            print "adding wall", c
+            #print "adding wall", c
             if is_horizontal (c):
                 completed_room = build_horiz_wall (c, completed_room)
             else:
@@ -622,7 +622,7 @@ def replace_add_wall_segment (unit, other, x, y, z, length, orientation, basenam
 def have_combined (unit, other):
     global bricks
     if unit != other:
-        print "unit =", unit, bricks[unit], "other =", other, bricks[other]
+        #print "unit =", unit, bricks[unit], "other =", other, bricks[other]
         other_pos = get_brick_pos (other)
         other_len = bricks[other][3]
         unit_pos = get_brick_pos (unit)
@@ -664,7 +664,7 @@ def optimize_bricks ():
                     else:
                         j += 1
             i += 1
-    print bricks
+    #print bricks
 
 
 #
