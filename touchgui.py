@@ -106,6 +106,7 @@ class text_tile:
     #
     #  select - test to see if the mouse position is over the tile and it is not frozen
     #           and if the mouse is activated call the action.
+    #  Look at Image_Tile.select to understand stuff about this function.
     #
     def select (self):
         if self._state != tile_frozen:
@@ -297,6 +298,7 @@ class image_tile:
     #
     #  select - test to see if the mouse position is over the tile and it is not frozen
     #           and if the mouse is activated call the action.
+    #  THIS IS THE FUNCTION THAT CAUSES MULTIPLE ACTIVATIONS ON ONE CLICK OF A BUTTON. FIX SO THAT IT ONLY PERFORMS ONE ACTION PER CLICK
     #
     def select (self):
         if self._state != tile_frozen:

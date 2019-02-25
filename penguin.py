@@ -11,11 +11,14 @@ full_screen = True
 isTablet, tabletOrMouse = False, None
 isAudio, audio = True, None
 isCombat, combat_mode = True, None
+isAdventure, adventure_mode = True, None
 signal_level, signal = 3, None
 orig_mouse_pointer = None
 attack_mode = False
 current_orientation = 0
 can_rotate = True
+clock=pygame.time.Clock()
+
 
 
 toggle_delay = 250
@@ -169,13 +172,13 @@ def main ():
     global tabletOrMouse, audio, orig_mouse_pointer, combat_mode, white
 
     pygame.init ()
-    pygame.font.init()
-    textfont = pygame.font.SysFont("monospace", 15)
     if full_screen:
         #gameDisplay = pygame.display.set_mode ((display_width, display_height), FULLSCREEN)
 		gameDisplay = pygame.display.set_mode ((display_width, display_height))
     else:
         gameDisplay = pygame.display.set_mode ((display_width, display_height))
+
+    myfont = pygame.font.SysFont("monospace",50)
 
     orig_mouse_pointer = pygame.mouse.get_cursor ()
 
@@ -193,7 +196,7 @@ def main ():
 
     signal = touchgui.image_tile (image_list ("signal1"),                           #Perhaps showcases Wi-Fi signal strength.
                                   touchgui.posX (0.15), touchgui.posY (1.0),
-                                  100, 100, orient270)
+                                  100, 100, signal_value)
 
     """
     divide = touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
@@ -244,11 +247,12 @@ def main ():
 
     ])]
     
-    label = textfont.render("TEST", 1 , white)
-
+    text1 = myfont.render("Text",1,white)
+    
     forms = controls + movement_arrows + combat_mode
     isoobject.testRoom ()                  #Renders a basic 3D room for us
     touchgui.select (forms, myquit)
+    gameDisplay.blit(text1,(800,800))
 
 
 main ()
