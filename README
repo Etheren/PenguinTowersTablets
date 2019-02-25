@@ -25,6 +25,10 @@ but not entirely sure how to.
 Figured out WHY when clicking a button the action repeats a few times. 
 Apparently holding down the mouse key and moving the mouse around can cause a VERY large amount of actions to happen back to back as long as the mouse key is being held. This WILL need the select function in touchgui (the one with the forms and quit parameters) to be modified so that it ONLY ever does that once per click.
 
+25/02/2019 :-
+
+Jumped the gun. Turns out it might just simply be the select function in the classes for image and text tiles. Still need to modify to only allow one action per click. Whoops.
+
 
 Please see doc/penguin-tower.info, doc/ptower.texi, doc/ptower.html or
 doc/ptower.pdf for details about this package.
