@@ -130,6 +130,8 @@ def combat_list (name):
             touchgui.image_gui ("images/%s.png" % (name)).white2rgb (.1, .2, .4)]
 
 
+def switch_buttons():
+    global isComabt, isAdventure
 
 def flipAudio ():
     global isAudio, audio
