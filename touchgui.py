@@ -301,15 +301,20 @@ class image_tile:
     #  THIS IS THE FUNCTION THAT CAUSES MULTIPLE ACTIVATIONS ON ONE CLICK OF A BUTTON. FIX SO THAT IT ONLY PERFORMS ONE ACTION PER CLICK
     #
     def select (self):
+		clicked = false
         if self._state != tile_frozen:
             mouse = pygame.mouse.get_pos ()
             click = pygame.mouse.get_pressed ()
             if self._x+self._width > mouse[0] > self._x and self._y+self._height > mouse[1] > self._y:
                 self.set_activated ()
-                if click[0] == 1:
+                if click[0] == 1 &&b clicked == false:
+					clicked = true
                     self.set_pressed ()
+					self.set_frozen ()
                     if self._action != None:
                         self._action ()
+                if click[0] == 0:
+					clicked = false
 
     #
     #  dselect - set active all unfrozen tiles.
