@@ -3,6 +3,8 @@
 debugging = False
 debugging = True
 
+
+
 import pygame, os
 from pygame.locals import *
 
@@ -11,6 +13,8 @@ from palate import *
 
 display_width, display_height = None, None
 fuzz = "100%"
+mouse = pygame.mouse.get_pos ()
+click = pygame.mouse.get_pressed ()
 
 
 #
@@ -301,20 +305,27 @@ class image_tile:
     #  THIS IS THE FUNCTION THAT CAUSES MULTIPLE ACTIVATIONS ON ONE CLICK OF A BUTTON. FIX SO THAT IT ONLY PERFORMS ONE ACTION PER CLICK
     #
     def select (self):
-		clicked = false
+        global mouse, click
+        clicked = False
         if self._state != tile_frozen:
             mouse = pygame.mouse.get_pos ()
             click = pygame.mouse.get_pressed ()
             if self._x+self._width > mouse[0] > self._x and self._y+self._height > mouse[1] > self._y:
                 self.set_activated ()
-                if click[0] == 1 &&b clicked == false:
-					clicked = true
+                if click[0] == 1 and clicked == False:
+                    clicked = True
                     self.set_pressed ()
-					self.set_frozen ()
+                    self.set_frozen ()
                     if self._action != None:
                         self._action ()
                 if click[0] == 0:
-					clicked = false
+                    clicked = False
+        elif self._state == tile_frozen:
+            mouse = pygame.mouse.get_pos ()
+            click = pygame.mouse.get_pressed ()
+            if self._x+self._width > mouse[0] > self._x and self._y+self._height > mouse[1] > self._y:
+                if click[0] == 1:
+                    self.set_active ()
 
     #
     #  dselect - set active all unfrozen tiles.
