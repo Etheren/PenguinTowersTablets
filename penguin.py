@@ -11,7 +11,6 @@ full_screen = True
 isTablet, tabletOrMouse = False, None
 isAudio, audio = True, None
 isCombat, combat_mode = True, None
-isAdventure, adventure_mode = True, None
 signal_level, signal = 3, None
 orig_mouse_pointer = None
 attack_mode = False
@@ -160,6 +159,19 @@ def flipMouseTablet ():
         pygame.mouse.set_cursor ((8,8), (0,0), (0,0,0,0,0,0,0,0), (0,0,0,0,0,0,0,0))
         tabletOrMouse.set_images (image_list ("tablet"))
 
+def interactOrAttack
+    global isCombat, combat_mode
+
+    pygame.display.update()
+    pygame.time.delay(toggle_delay)
+    if isCombat:
+        isCombat = False
+        combat_mode.set_images (image_list ("buttonA")
+    else:
+        isCombat = True
+        combat_mode.set_images (combat_list ("slashresize")
+        
+
 
 def signal_value (n):
     global signal_level, signal
@@ -200,6 +212,9 @@ def main ():
                                   touchgui.posX (0.15), touchgui.posY (1.0),
                                   100, 100, signal_value)
 
+    interaction_buttons = [touchgui.form ([touchgui.
+    
+
     """
     divide = touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
                                  u'\u00F7', touchgui.unitY (0.05),
@@ -207,10 +222,10 @@ def main ():
                                  100, 100, orient270)
     """
 
-    combat_mode = [touchgui.form ([touchgui.image_tile(combat_list ("bombresize"), touchgui.posX (0.95), touchgui.posY (0.1), 100, 100, test_ping),
-                                   touchgui.image_tile(combat_list ("arrowresize"), touchgui.posX (0.95), touchgui.posY (0.3), 100, 100, test_ping),
-                                   touchgui.image_tile(combat_list ("slashresize"), touchgui.posX (0.95), touchgui.posY (0.5), 100, 100, test_ping),
-                                   touchgui.image_tile(image_list ("cross"), touchgui.posX (0.95), touchgui.posY (0.7), 100, 100, test_ping)]
+    #combat_mode = [touchgui.form ([touchgui.image_tile(combat_list ("bombresize"), touchgui.posX (0.95), touchgui.posY (0.1), 100, 100, test_ping),
+    #                               touchgui.image_tile(combat_list ("arrowresize"), touchgui.posX (0.95), touchgui.posY (0.3), 100, 100, test_ping),
+     #                              touchgui.image_tile(combat_list ("slashresize"), touchgui.posX (0.95), touchgui.posY (0.5), 100, 100, test_ping),
+      #                             touchgui.image_tile(image_list ("cross"), touchgui.posX (0.95), touchgui.posY (0.7), 100, 100, test_ping)]
 )]
 
     controls = [touchgui.form ([touchgui.image_tile (image_list ("power"), #Power Button, to shut the app down. OR perhaps just use the tablet's OS to shut the app down?
