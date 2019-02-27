@@ -10,10 +10,10 @@ full_screen = False
 full_screen = True
 isTablet, tabletOrMouse = False, None
 isAudio, audio = True, None
-isCombat, combat_mode = True, None
+isCombat, attackOrInteractForm, attackOrCombatForm = True, None, None
+combatTestForm = None
 signal_level, signal = 3, None
 orig_mouse_pointer = None
-attack_mode = False
 current_orientation = 0
 can_rotate = True
 clock=pygame.time.Clock()
@@ -159,18 +159,46 @@ def flipMouseTablet ():
         pygame.mouse.set_cursor ((8,8), (0,0), (0,0,0,0,0,0,0,0), (0,0,0,0,0,0,0,0))
         tabletOrMouse.set_images (image_list ("tablet"))
 
-def interactOrAttack
-    global isCombat, combat_mode
+def interactOrAttack ():
+    global isCombat, attackOrInteractForm
 
     pygame.display.update()
     pygame.time.delay(toggle_delay)
     if isCombat:
+        print("Attacking with a Sword")
+        attackOrInteractForm.set_images (combat_list ("slashresize"))
+    else:
+        print("Interacting with X")
+
+        attackOrInteractForm.set_images (image_list ("buttonA"))
+
+def arrowOrCombat ():
+    global isCombat, arrowOrCombatForm, attackOrInteractForm
+	
+    pygame.display.update()
+    pygame.time.delay(toggle_delay)
+    if isCombat:
+        arrowOrCombatForm.set_images(combat_list("arrowresize"))
+        print("Shooting an Arrow")
+    else:
+        arrowOrCombatForm.set_images(combat_list("arrowresize"))
+        attackOrInteractForm.set_images(combat_list("slashresize"))
+        print ("Switching to Combat Menu")
+        isCombat = True
+        
+def combatTest ():
+    global isCombat , arrowOrCombatForm, attackOrInteractForm
+    
+    pygame.display.update()
+    pygame.time.delay(toggle_delay)
+    if isCombat:
         isCombat = False
-        combat_mode.set_images (image_list ("buttonA")
+        attackOrInteractForm.set_images (image_list ("buttonA"))
+        arrowOrCombatForm.set_images(image_list("cross"))
     else:
         isCombat = True
-        combat_mode.set_images (combat_list ("slashresize")
-        
+        arrowOrCombatForm.set_images(combat_list("arrowresize"))
+        attackOrInteractForm.set_images(combat_list("slashresize"))
 
 
 def signal_value (n):
@@ -183,7 +211,7 @@ def test_ping ():
 
 
 def main ():
-    global tabletOrMouse, audio, orig_mouse_pointer, combat_mode, white
+    global tabletOrMouse, audio, orig_mouse_pointer, attackOrInteractForm, arrowOrCombatForm, combatTestForm, white
 
     pygame.init ()
     if full_screen:
@@ -212,7 +240,11 @@ def main ():
                                   touchgui.posX (0.15), touchgui.posY (1.0),
                                   100, 100, signal_value)
 
-    interaction_buttons = [touchgui.form ([touchgui.
+    attackOrInteractForm = touchgui.image_tile(combat_list ("slashresize"), touchgui.posX (0.95), touchgui.posY (0.1), 100, 100, interactOrAttack)
+    
+    arrowOrCombatForm = touchgui.image_tile(combat_list ("arrowresize"), touchgui.posX (0.95), touchgui.posY (0.3), 100, 100, arrowOrCombat)
+    
+    combatTestForm = touchgui.image_tile(combat_list ("arrowresize"), touchgui.posX (0.95), touchgui.posY (0.5), 100, 100, combatTest)
     
 
     """
@@ -225,8 +257,8 @@ def main ():
     #combat_mode = [touchgui.form ([touchgui.image_tile(combat_list ("bombresize"), touchgui.posX (0.95), touchgui.posY (0.1), 100, 100, test_ping),
     #                               touchgui.image_tile(combat_list ("arrowresize"), touchgui.posX (0.95), touchgui.posY (0.3), 100, 100, test_ping),
      #                              touchgui.image_tile(combat_list ("slashresize"), touchgui.posX (0.95), touchgui.posY (0.5), 100, 100, test_ping),
-      #                             touchgui.image_tile(image_list ("cross"), touchgui.posX (0.95), touchgui.posY (0.7), 100, 100, test_ping)]
-)]
+      #                             touchgui.image_tile(image_list ("cross"), touchgui.posX (0.95), touchgui.posY (0.7), 100, 100, test_ping)])]
+
 
     controls = [touchgui.form ([touchgui.image_tile (image_list ("power"), #Power Button, to shut the app down. OR perhaps just use the tablet's OS to shut the app down?
                                                      touchgui.posX (0.95), touchgui.posY (1.0),
@@ -236,7 +268,7 @@ def main ():
 
                                 touchgui.image_tile (image_list ("singleplayer"),   #Supposedly disconnects/connects the player to a server?
                                                      touchgui.posX (0.05), touchgui.posY (1.0),
-                                                     100, 100, orient270),
+                                                     100, 100),
 
                                 tabletOrMouse, signal,
 
@@ -261,15 +293,19 @@ def main ():
                                 touchgui.image_tile (image_list ("singleplayer"),   #Supposedly disconnects/connects the player to a server?
                                                      touchgui.posX (0.05), touchgui.posY (1.0),
                                                      100, 100, orient270),
+                                                     
+                                
 
     ])]
     
+    interaction_buttons = [touchgui.form([ attackOrInteractForm, arrowOrCombatForm, combatTestForm])]
+    
     text1 = myfont.render("Text",1,white)
     
-    forms = controls + movement_arrows + combat_mode
+    forms = controls + movement_arrows + interaction_buttons
     isoobject.testRoom ()                  #Renders a basic 3D room for us
     touchgui.select (forms, myquit)
-    gameDisplay.blit(text1,(800,800))
+    gameDisplay.blit(text1,(800, 800))
 
 
 main ()
