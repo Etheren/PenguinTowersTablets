@@ -12,6 +12,7 @@ isTablet, tabletOrMouse = False, None
 isAudio, audio = True, None
 isCombat, attackOrInteractForm, attackOrCombatForm = True, None, None
 combatTestForm = None
+bombButtonForm, nonCombatForm = None, None
 signal_level, signal = 3, None
 orig_mouse_pointer = None
 current_orientation = 0
@@ -173,7 +174,7 @@ def interactOrAttack ():
         attackOrInteractForm.set_images (image_list ("buttonA"))
 
 def arrowOrCombat ():
-    global isCombat, arrowOrCombatForm, attackOrInteractForm
+    global isCombat, arrowOrCombatForm, attackOrInteractForm, bombButtonForm, nonCombatForm
 	
     pygame.display.update()
     pygame.time.delay(toggle_delay)
@@ -183,8 +184,45 @@ def arrowOrCombat ():
     else:
         arrowOrCombatForm.set_images(combat_list("arrowresize"))
         attackOrInteractForm.set_images(combat_list("slashresize"))
+        bombButtonForm.set_images(combat_list("bombresize"))
+        bombButtonForm.set_active()
+        nonCombatForm.set_images(image_list("cross"))
+        nonCombatForm.set_active()
         print ("Switching to Combat Menu")
         isCombat = True
+
+def bombButton ():
+    global isCombat, bombButtonForm
+    
+    pygame.display.update()
+    pygame.time.delay(toggle_delay)
+    if isCombat:
+        bombButtonForm.set_images(combat_list("bombresize"))
+        print ("Placing Bomb Down")
+    else:
+        bombButtonForm.set_images(combat_list("blank"))
+        bombButtonForm.set_frozen()
+        
+def nonCombatButton ():
+    global isCombat, arrowOrCombatForm, attackOrInteractForm, bombButtonForm, nonCombatForm
+    
+    pygame.display.update()
+    pygame.time.delay(toggle_delay)
+    if isCombat:
+        print ("Switching to Adventure Menu")
+        isCombat = False
+        arrowOrCombatForm.set_images(image_list("cross"))
+        attackOrInteractForm.set_images(image_list("buttonA"))
+        bombButtonForm.set_images(combat_list("blank"))
+        bombButtonForm.set_frozen()
+        nonCombatForm.set_images(combat_list("blank"))
+        nonCombatForm.set_frozen()
+    else:
+        nonCombatForm.set_images(combat_list("blank"))
+        nonCombatForm.set_frozen()
+       
+    
+
         
 def combatTest ():
     global isCombat , arrowOrCombatForm, attackOrInteractForm
@@ -211,7 +249,7 @@ def test_ping ():
 
 
 def main ():
-    global tabletOrMouse, audio, orig_mouse_pointer, attackOrInteractForm, arrowOrCombatForm, combatTestForm, white
+    global tabletOrMouse, audio, orig_mouse_pointer, attackOrInteractForm, arrowOrCombatForm, bombButtonForm , nonCombatForm, combatTestForm, white
 
     pygame.init ()
     if full_screen:
@@ -244,7 +282,9 @@ def main ():
     
     arrowOrCombatForm = touchgui.image_tile(combat_list ("arrowresize"), touchgui.posX (0.95), touchgui.posY (0.3), 100, 100, arrowOrCombat)
     
-    combatTestForm = touchgui.image_tile(combat_list ("arrowresize"), touchgui.posX (0.95), touchgui.posY (0.5), 100, 100, combatTest)
+    bombButtonForm = touchgui.image_tile(combat_list ("bombresize"), touchgui.posX (0.95), touchgui.posY (0.5), 100, 100, bombButton)
+    
+    nonCombatForm = touchgui.image_tile(image_list ("cross"), touchgui.posX (0.95), touchgui.posY (0.7), 100, 100, nonCombatButton)
     
 
     """
@@ -298,14 +338,14 @@ def main ():
 
     ])]
     
-    interaction_buttons = [touchgui.form([ attackOrInteractForm, arrowOrCombatForm, combatTestForm])]
+    interaction_buttons = [touchgui.form([ attackOrInteractForm, arrowOrCombatForm, bombButtonForm ,nonCombatForm])]
     
     text1 = myfont.render("Text",1,white)
     
     forms = controls + movement_arrows + interaction_buttons
     isoobject.testRoom ()                  #Renders a basic 3D room for us
     touchgui.select (forms, myquit)
-    gameDisplay.blit(text1,(800, 800))
+    #gameDisplay.blit(text1,(touchgui.posX(0.50), touchgui.posY(0.1))
 
 
 main ()
