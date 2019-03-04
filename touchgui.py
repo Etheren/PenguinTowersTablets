@@ -2,6 +2,7 @@
 
 debugging = False
 debugging = True
+isActivating = False
 
 import pygame, os
 from pygame.locals import *
@@ -159,13 +160,17 @@ class text_tile:
                           (self._x, self._y, self._width, self._height))
         # print self._x, self._y, self._width, self._height, self._y - self._height
         gameDisplay.blit (self._text_surf, self._text_rect)
+        
+    def updateText (self, newText):
+        self._text_message = newText
+        self.update()
+    
     #
     #  flush_display - call the callback if one is registered.
     #
     def flush_display (self):
         if not (self._flush is None):
             self._flush ()
-
 
 def load_image (name):
     return pygame.image.load (name).convert_alpha ()
@@ -177,7 +182,9 @@ def cache_file (name):
 def cache_exists (name):
     return os.path.isfile (cache_file (name))
 
-
+def allowActivation ():
+    global isActivating
+    isActivating = False
 
 def _errorf (s):
     print s
@@ -301,15 +308,21 @@ class image_tile:
     #  THIS IS THE FUNCTION THAT CAUSES MULTIPLE ACTIVATIONS ON ONE CLICK OF A BUTTON. FIX SO THAT IT ONLY PERFORMS ONE ACTION PER CLICK
     #
     def select (self):
+        global isActivating
         if self._state != tile_frozen:
             mouse = pygame.mouse.get_pos ()
             click = pygame.mouse.get_pressed ()
             if self._x+self._width > mouse[0] > self._x and self._y+self._height > mouse[1] > self._y:
                 self.set_activated ()
-                if click[0] == 1:
+                if click[0] == 1 and self._x+self._width > mouse[0] > self._x and self._y+self._height > mouse[1] > self._y:
                     self.set_pressed ()
-                    if self._action != None:
+                    if self._action != None: #and isActivating == False:
                         self._action ()
+                      #  isActivating = True
+               # elif self._x+self._width > mouse[0] > self._x and self._y+self._height > mouse[1] > self._y:
+                   # isActivating == False
+                
+
 
     #
     #  dselect - set active all unfrozen tiles.

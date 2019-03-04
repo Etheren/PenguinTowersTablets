@@ -250,6 +250,8 @@ def test_ping ():
 
 def main ():
     global tabletOrMouse, audio, orig_mouse_pointer, attackOrInteractForm, arrowOrCombatForm, bombButtonForm , nonCombatForm, combatTestForm, white
+    
+    done = False
 
     pygame.init ()
     if full_screen:
@@ -258,7 +260,7 @@ def main ():
     else:
         gameDisplay = pygame.display.set_mode ((display_width, display_height))
 
-    myfont = pygame.font.SysFont("monospace",50)
+    myfont = pygame.font.SysFont("Times New Roman",72)
 
     orig_mouse_pointer = pygame.mouse.get_cursor ()
 
@@ -332,20 +334,32 @@ def main ():
 
                                 touchgui.image_tile (image_list ("singleplayer"),   #Supposedly disconnects/connects the player to a server?
                                                      touchgui.posX (0.05), touchgui.posY (1.0),
-                                                     100, 100, orient270),
-                                                     
-                                
+                                                     100, 100, orient270),                                                                       
 
     ])]
     
+    #health = touchgui.text_tile (palate.forest_green, palate.forest_green, palate.forest_green, palate,forest_green, "100", touchgui.posX (0.5), touchgui.posY (0.9), touchgui.unitX (0.045), touchgui.unitY (0.045))
+    
+    health = touchgui.text_tile (white, white, white, white,  "100",touchgui.unitY (0.05), touchgui.posX (0.5), touchgui.posY (0.9), touchgui.unitX (0.045), touchgui.unitY (0.045))
+    
+
+    
+    health_and_info = [touchgui.form([ health ])]
+    
     interaction_buttons = [touchgui.form([ attackOrInteractForm, arrowOrCombatForm, bombButtonForm ,nonCombatForm])]
     
-    text1 = myfont.render("Text",1,white)
-    
-    forms = controls + movement_arrows + interaction_buttons
-    isoobject.testRoom ()                  #Renders a basic 3D room for us
-    touchgui.select (forms, myquit)
-    #gameDisplay.blit(text1,(touchgui.posX(0.50), touchgui.posY(0.1))
+    text1 = myfont.render("Text",True,white)
+    while not done:
+        for event in pygame.event.get():
+            forms = controls + movement_arrows + interaction_buttons + health_and_info
+            isoobject.testRoom ()                  #Renders a basic 3D room for us
+            touchgui.select (forms, myquit)
+            #gameDisplay.blit(text1,(960 , 100))
+            gameDisplay.blit(text1,(touchgui.posX (0.5) , touchgui.posY (0.9)))
+            if event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    touchgui.allowActivating()
+        pygame.display.update()
 
 
 main ()

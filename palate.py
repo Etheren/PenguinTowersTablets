@@ -5,6 +5,7 @@ white = (255,255,255)
 green = (100,200,0)
 red   = (200,0,50)
 blue  = (0,0,255)
+forest_green = (11, 102, 35)
 
 wood_light = (166, 124, 54)
 wood_dark = (76, 47, 0)
