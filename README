@@ -29,6 +29,10 @@ Apparently holding down the mouse key and moving the mouse around can cause a VE
 
 Jumped the gun. Turns out it might just simply be the select function in the classes for image and text tiles. Still need to modify to only allow one action per click. Whoops.
 
+03/03/2019 :-
+For those who wish to see the report side of things, im writing it inside of Google Docs for now, then at some point I will be moving it all over into LaTeX once I feel it's done.
+https://docs.google.com/document/d/15KZK8NLfd8X7npq6hsAMOgEWQhGDxkzlNrG3smWA-kQ/edit?usp=sharing
+This is the link to that document. Should note that it's set up ONLY to be viewed. You can't comment or edit it whatsoever.
 
 Please see doc/penguin-tower.info, doc/ptower.texi, doc/ptower.html or
 doc/ptower.pdf for details about this package.
