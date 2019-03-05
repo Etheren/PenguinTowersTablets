@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import pygame, touchgui, palate, isoobject
+import pygame, touchgui, isoobject
 from pygame.locals import *
 
 # display_width, display_height = 1920, 1080
@@ -17,13 +17,31 @@ signal_level, signal = 3, None
 orig_mouse_pointer = None
 current_orientation = 0
 can_rotate = True
+playerHealth = 100
+playerBombs = 5
+playerArrows = 5
 clock=pygame.time.Clock()
 
+black = (0,0,0)
+white = (255,255,255)
+green = (100,200,0)
+red   = (200,0,50)
+blue  = (0,0,255)
+forest_green = (11, 102, 35)
 
+wood_light = (166, 124, 54)
+wood_dark = (76, 47, 0)
+
+dark_red = (130, 30, 40)
+dark_green = (25, 100, 50)
+dark_blue = (25, 50, 150)
+
+steel  = (128, 128, 128)
+copper = (128, int (0.3 * 256.0), int (0.2 * 256.0))
+gold   = (int (0.8 * 256.0), int (0.6 * 256.0), int (0.15 * 256.0))
 
 toggle_delay = 250
 
-white = (255, 255, 255)
 
 def myquit ():
     pygame.display.update ()
@@ -249,8 +267,9 @@ def test_ping ():
 
 
 def main ():
-    global tabletOrMouse, audio, orig_mouse_pointer, attackOrInteractForm, arrowOrCombatForm, bombButtonForm , nonCombatForm, combatTestForm, white
-    
+    global tabletOrMouse, audio, orig_mouse_pointer, attackOrInteractForm, arrowOrCombatForm, bombButtonForm , nonCombatForm, combatTestForm, playerHealth, playerBombs, playerArrows
+    global forest_green, black
+
     done = False
 
     pygame.init ()
@@ -340,11 +359,16 @@ def main ():
     
     #health = touchgui.text_tile (palate.forest_green, palate.forest_green, palate.forest_green, palate,forest_green, "100", touchgui.posX (0.5), touchgui.posY (0.9), touchgui.unitX (0.045), touchgui.unitY (0.045))
     
-    health = touchgui.text_tile (white, white, white, white,  "100",touchgui.unitY (0.05), touchgui.posX (0.5), touchgui.posY (0.9), touchgui.unitX (0.045), touchgui.unitY (0.045))
+    health = touchgui.text_tile (forest_green, forest_green, forest_green, forest_green, str(playerHealth),touchgui.unitY (0.05), touchgui.posX (0.35), touchgui.posY (0.95), touchgui.unitX (0.045), touchgui.unitY (0.045))
+
+    health_text = touchgui.text_tile (black, black, black, black, "Health",touchgui.unitY (0.05), touchgui.posX (0.35), touchgui.posY (1.0), touchgui.unitX (0.045), touchgui.unitY (0.045))
     
+    bombs = touchgui.text_tile (forest_green, forest_green, forest_green, forest_green, str(playerBombs),touchgui.unitY (0.05), touchgui.posX (0.5), touchgui.posY (0.95), touchgui.unitX (0.045), touchgui.unitY (0.045))
+    
+    bombcount_text = touchgui.text_tile (black, black, black, black, "Bombs",touchgui.unitY (0.05), touchgui.posX (0.50), touchgui.posY (1.0), touchgui.unitX (0.045), touchgui.unitY (0.045))
 
     
-    health_and_info = [touchgui.form([ health ])]
+    health_and_info = [touchgui.form([ health, health_text,bombs, bombcount_text])]
     
     interaction_buttons = [touchgui.form([ attackOrInteractForm, arrowOrCombatForm, bombButtonForm ,nonCombatForm])]
     
