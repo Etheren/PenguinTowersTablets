@@ -17,10 +17,12 @@ signal_level, signal = 3, None
 orig_mouse_pointer = None
 current_orientation = 0
 can_rotate = True
-playerHealth = 100
-playerBombs = 5
-playerArrows = 5
+playerHealth, health, health_text = 100, None, None
+playerBombs, bombs, bombcount_text = 5, None, None
+playerArrows, arrows, arrowcount_text = 10, None, None
 clock=pygame.time.Clock()
+
+bombDebug, arrowDebug, healDebug, damageDebug = None, None, None, None
 
 black = (0,0,0)
 white = (255,255,255)
@@ -192,13 +194,20 @@ def interactOrAttack ():
         attackOrInteractForm.set_images (image_list ("buttonA"))
 
 def arrowOrCombat ():
-    global isCombat, arrowOrCombatForm, attackOrInteractForm, bombButtonForm, nonCombatForm
+    global isCombat, arrowOrCombatForm, attackOrInteractForm, bombButtonForm, nonCombatForm ,playerArrows, arrows
 	
     pygame.display.update()
     pygame.time.delay(toggle_delay)
     if isCombat:
         arrowOrCombatForm.set_images(combat_list("arrowresize"))
-        print("Shooting an Arrow")
+        if playerArrows >= 1:
+            print("Shooting an Arrow")
+            playerArrows = playerArrows - 1
+            if playerArrows == 0:
+                arrows.updateColours(red,red,red,red)
+            arrows.updateText(str(playerArrows))
+        else:
+            print("Out Of Arrows")
     else:
         arrowOrCombatForm.set_images(combat_list("arrowresize"))
         attackOrInteractForm.set_images(combat_list("slashresize"))
@@ -210,13 +219,21 @@ def arrowOrCombat ():
         isCombat = True
 
 def bombButton ():
-    global isCombat, bombButtonForm
+    global isCombat, bombButtonForm, playerBombs, bombs
     
     pygame.display.update()
     pygame.time.delay(toggle_delay)
     if isCombat:
-        bombButtonForm.set_images(combat_list("bombresize"))
-        print ("Placing Bomb Down")
+        if playerBombs >= 1: 
+            bombButtonForm.set_images(combat_list("bombresize"))
+            print ("Placing Bomb Down")
+            playerBombs = playerBombs - 1
+            if playerBombs == 0:
+                bombs.updateColours(red,red,red,red)
+            bombs.updateText(str(playerBombs))
+        else:
+            bombButtonForm.set_images(combat_list("bombresize"))
+            print ("Out Of Bombs")
     else:
         bombButtonForm.set_images(combat_list("blank"))
         bombButtonForm.set_frozen()
@@ -229,7 +246,7 @@ def nonCombatButton ():
     if isCombat:
         print ("Switching to Adventure Menu")
         isCombat = False
-        arrowOrCombatForm.set_images(image_list("cross"))
+        arrowOrCombatForm.set_images(combat_list("swordresize"))
         attackOrInteractForm.set_images(image_list("buttonA"))
         bombButtonForm.set_images(combat_list("blank"))
         bombButtonForm.set_frozen()
@@ -239,24 +256,45 @@ def nonCombatButton ():
         nonCombatForm.set_images(combat_list("blank"))
         nonCombatForm.set_frozen()
        
-    
+def freezeButtons():
+    global health, bombs, arrows, health_text, bombcount_text, arrowcount_text
 
+    health.set_frozen()
+    health_text.set_frozen()
+    bombs.set_frozen()
+    bombcount_text.set_frozen()
+    arrows.set_frozen()
+    arrowcount_text.set_frozen()
         
-def combatTest ():
-    global isCombat , arrowOrCombatForm, attackOrInteractForm
+def giveArrows():
+    global arrows, playerArrows
+    print ("Giving 10 Arrows")
+    playerArrows = playerArrows + 10
+    arrows.updateColours(forest_green,forest_green,forest_green,forest_green)
+    arrows.updateText(str(playerArrows))
+
+def giveBombs():
+    global bombs, playerBombs
+    print ("Giving 10 Bombs")
+    playerBombs = playerBombs + 10
+    bombs.updateColours(forest_green,forest_green,forest_green,forest_green)
+    bombs.updateText(str(playerBombs))
+
+def healPlayer():
+    global playerHealth, health
+    print ("Healing Player to Max Health")
+    playerHealth = 100
+    health.updateColours(forest_green,forest_green,forest_green,forest_green)
+    health.updateText(str(playerHealth))
+
+def damagePlayer():
+    global playerHealth, health
+    print ("Damaging Player by 10HP")
+    playerHealth = playerHealth - 10
+    if playerHealth <= 0:
+        health.updateColours(red,red,red,red)
+    health.updateText(str(playerHealth))
     
-    pygame.display.update()
-    pygame.time.delay(toggle_delay)
-    if isCombat:
-        isCombat = False
-        attackOrInteractForm.set_images (image_list ("buttonA"))
-        arrowOrCombatForm.set_images(image_list("cross"))
-    else:
-        isCombat = True
-        arrowOrCombatForm.set_images(combat_list("arrowresize"))
-        attackOrInteractForm.set_images(combat_list("slashresize"))
-
-
 def signal_value (n):
     global signal_level, signal
     signal_level = n
@@ -268,7 +306,9 @@ def test_ping ():
 
 def main ():
     global tabletOrMouse, audio, orig_mouse_pointer, attackOrInteractForm, arrowOrCombatForm, bombButtonForm , nonCombatForm, combatTestForm, playerHealth, playerBombs, playerArrows
-    global forest_green, black
+    global forest_green, black, dark_blue
+    global health, bombs, arrows, health_text, bombcount_text, arrowcount_text
+    global bombDebug, arrowDebug, healDebug, damageDebug
 
     done = False
 
@@ -308,19 +348,6 @@ def main ():
     nonCombatForm = touchgui.image_tile(image_list ("cross"), touchgui.posX (0.95), touchgui.posY (0.7), 100, 100, nonCombatButton)
     
 
-    """
-    divide = touchgui.text_tile (palate.red, palate.green, palate.blue, palate.gold,
-                                 u'\u00F7', touchgui.unitY (0.05),
-                                 touchgui.posX (0.15), touchgui.posY (1.0),
-                                 100, 100, orient270)
-    """
-
-    #combat_mode = [touchgui.form ([touchgui.image_tile(combat_list ("bombresize"), touchgui.posX (0.95), touchgui.posY (0.1), 100, 100, test_ping),
-    #                               touchgui.image_tile(combat_list ("arrowresize"), touchgui.posX (0.95), touchgui.posY (0.3), 100, 100, test_ping),
-     #                              touchgui.image_tile(combat_list ("slashresize"), touchgui.posX (0.95), touchgui.posY (0.5), 100, 100, test_ping),
-      #                             touchgui.image_tile(image_list ("cross"), touchgui.posX (0.95), touchgui.posY (0.7), 100, 100, test_ping)])]
-
-
     controls = [touchgui.form ([touchgui.image_tile (image_list ("power"), #Power Button, to shut the app down. OR perhaps just use the tablet's OS to shut the app down?
                                                      touchgui.posX (0.95), touchgui.posY (1.0),
                                                      100, 100, myquit),
@@ -357,8 +384,6 @@ def main ():
 
     ])]
     
-    #health = touchgui.text_tile (palate.forest_green, palate.forest_green, palate.forest_green, palate,forest_green, "100", touchgui.posX (0.5), touchgui.posY (0.9), touchgui.unitX (0.045), touchgui.unitY (0.045))
-    
     health = touchgui.text_tile (forest_green, forest_green, forest_green, forest_green, str(playerHealth),touchgui.unitY (0.05), touchgui.posX (0.35), touchgui.posY (0.95), touchgui.unitX (0.045), touchgui.unitY (0.045))
 
     health_text = touchgui.text_tile (black, black, black, black, "Health",touchgui.unitY (0.05), touchgui.posX (0.35), touchgui.posY (1.0), touchgui.unitX (0.045), touchgui.unitY (0.045))
@@ -367,23 +392,31 @@ def main ():
     
     bombcount_text = touchgui.text_tile (black, black, black, black, "Bombs",touchgui.unitY (0.05), touchgui.posX (0.50), touchgui.posY (1.0), touchgui.unitX (0.045), touchgui.unitY (0.045))
 
+    arrows = touchgui.text_tile (forest_green, forest_green, forest_green, forest_green, str(playerArrows),touchgui.unitY (0.05), touchgui.posX (0.65), touchgui.posY (0.95), touchgui.unitX (0.045), touchgui.unitY (0.045))
+
+    arrowcount_text = touchgui.text_tile (black, black, black, black, "Arrows",touchgui.unitY (0.05), touchgui.posX (0.65), touchgui.posY (1.0), touchgui.unitX (0.045), touchgui.unitY (0.045))
     
-    health_and_info = [touchgui.form([ health, health_text,bombs, bombcount_text])]
+    arrowDebug = touchgui.text_tile (dark_blue, dark_blue, blue, green, "Give 10 Arrows",touchgui.unitY (0.05), touchgui.posX (0.03), touchgui.posY (0.75), touchgui.unitX (0.15), touchgui.unitY (0.045), giveArrows)
+    
+    bombDebug = touchgui.text_tile (dark_blue, dark_blue, blue, green, "Give 10 Bombs",touchgui.unitY (0.05), touchgui.posX (0.03), touchgui.posY (0.7), touchgui.unitX (0.15), touchgui.unitY (0.045), giveBombs)
+
+    healDebug = touchgui.text_tile (dark_blue, dark_blue, blue, green, "Heal to Full",touchgui.unitY (0.05), touchgui.posX (0.03), touchgui.posY (0.65), touchgui.unitX (0.15), touchgui.unitY (0.045), healPlayer)
+    
+    damageDebug = touchgui.text_tile (dark_blue, dark_blue, blue, green, "10 Damage",touchgui.unitY (0.05), touchgui.posX (0.03), touchgui.posY (0.6), touchgui.unitX (0.15), touchgui.unitY (0.045), damagePlayer)
+    
+    health_and_info = [touchgui.form([ health, health_text,bombs, bombcount_text, arrows, arrowcount_text])]
     
     interaction_buttons = [touchgui.form([ attackOrInteractForm, arrowOrCombatForm, bombButtonForm ,nonCombatForm])]
     
+    debug_menu = [touchgui.form([arrowDebug, bombDebug, healDebug, damageDebug])]
+    
     text1 = myfont.render("Text",True,white)
-    while not done:
-        for event in pygame.event.get():
-            forms = controls + movement_arrows + interaction_buttons + health_and_info
-            isoobject.testRoom ()                  #Renders a basic 3D room for us
-            touchgui.select (forms, myquit)
-            #gameDisplay.blit(text1,(960 , 100))
-            gameDisplay.blit(text1,(touchgui.posX (0.5) , touchgui.posY (0.9)))
-            if event.type == pygame.MOUSEBUTTONUP:
-                if event.button == 1:
-                    touchgui.allowActivating()
-        pygame.display.update()
+    forms = controls + movement_arrows + interaction_buttons + health_and_info + debug_menu
+    isoobject.testRoom ()                  #Renders a basic 3D room for us
+    touchgui.select (forms, myquit)
+    freezeButtons()
+    gameDisplay.blit(text1,(touchgui.posX (0.5) , touchgui.posY (0.9)))
+    pygame.display.update()
 
 
 main ()

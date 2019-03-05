@@ -161,8 +161,22 @@ class text_tile:
         # print self._x, self._y, self._width, self._height, self._y - self._height
         gameDisplay.blit (self._text_surf, self._text_rect)
         
+    #
+    # updateText - update the text that is on the text tile
+    #
+
     def updateText (self, newText):
         self._text_message = newText
+        self._text_surf, self._text_rect = text_objects (self._text_message, self._text_font, white)
+        self._text_rect.center = ( (self._x+(self._width/2)), (self._y+(self._height/2)) )
+        self.update()
+
+    #
+    # updateColours - update the 4 colours for the button
+    #
+
+    def updateColours(self, newFrozen, newActive, newActivated, newPressed):
+        self._colours = [newFrozen, newActive, newActivated, newPressed]
         self.update()
     
     #
@@ -316,11 +330,9 @@ class image_tile:
                 self.set_activated ()
                 if click[0] == 1 and self._x+self._width > mouse[0] > self._x and self._y+self._height > mouse[1] > self._y:
                     self.set_pressed ()
-                    if self._action != None: #and isActivating == False:
+                    if self._action != None and isActivating == False:
                         self._action ()
-                      #  isActivating = True
-               # elif self._x+self._width > mouse[0] > self._x and self._y+self._height > mouse[1] > self._y:
-                   # isActivating == False
+
                 
 
 
@@ -397,7 +409,7 @@ def deselect (forms):
 
 
 def select (forms, quit_func):
-    global need_update
+    global need_update, isActivating
 
     update (forms)
     pygame.display.update ()
@@ -409,10 +421,12 @@ def select (forms, quit_func):
             _select (forms)
             update (forms)
             pygame.display.update ()
+            isActivating = True
         elif event.type == pygame.MOUSEBUTTONUP:
             deselect (forms)
             _select (forms)
             update (forms)
+            isActivating = False
             pygame.display.update ()
         else:
             _select (forms)
