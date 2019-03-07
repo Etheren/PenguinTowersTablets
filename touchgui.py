@@ -110,6 +110,7 @@ class text_tile:
     #  Look at Image_Tile.select to understand stuff about this function.
     #
     def select (self):
+        global isActivating
         if self._state != tile_frozen:
             mouse = pygame.mouse.get_pos ()
             click = pygame.mouse.get_pressed ()
@@ -117,8 +118,9 @@ class text_tile:
                 self.set_activated ()
                 if click[0] == 1:
                     self.set_pressed ()
-                    if self._action != None:
+                    if self._action != None and isActivating == False:
                         self._action ()
+                        isActivating = True
 
     def deselect (self):
         if self._state != tile_frozen:
@@ -332,6 +334,7 @@ class image_tile:
                     self.set_pressed ()
                     if self._action != None and isActivating == False:
                         self._action ()
+                        isActivating = True
 
                 
 
@@ -421,12 +424,11 @@ def select (forms, quit_func):
             _select (forms)
             update (forms)
             pygame.display.update ()
-            isActivating = True
         elif event.type == pygame.MOUSEBUTTONUP:
+            isActivating = False
             deselect (forms)
             _select (forms)
             update (forms)
-            isActivating = False
             pygame.display.update ()
         else:
             _select (forms)
