@@ -321,8 +321,6 @@ class image_tile:
     #
     #  select - test to see if the mouse position is over the tile and it is not frozen
     #           and if the mouse is activated call the action.
-    #  THIS IS THE FUNCTION THAT CAUSES MULTIPLE ACTIVATIONS ON ONE CLICK OF A BUTTON. FIX SO THAT IT ONLY PERFORMS ONE ACTION PER CLICK
-    #
     def select (self):
         global isActivating
         if self._state != tile_frozen:
@@ -335,10 +333,6 @@ class image_tile:
                     if self._action != None and isActivating == False:
                         self._action ()
                         isActivating = True
-
-                
-
-
     #
     #  dselect - set active all unfrozen tiles.
     #
@@ -448,7 +442,6 @@ def create_cache ():
 def reset_cache ():
     d = os.path.join (os.path.join (os.environ["HOME"], ".cache"), "touchgui")
     os.system ("rm -r %s" % (d))
-
 
 reset_cache ()
 create_cache ()

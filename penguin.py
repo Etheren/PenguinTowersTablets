@@ -167,7 +167,6 @@ def flipAudio ():
 
 def flipMouseTablet ():
     global isTablet, tabletOrMouse
-
     pygame.display.update ()
     pygame.time.delay (toggle_delay)
     if isTablet:
@@ -182,24 +181,16 @@ def flipMouseTablet ():
 
 def interactOrAttack ():
     global isCombat, attackOrInteractForm
-
     pygame.display.update()
-    pygame.time.delay(toggle_delay)
     if isCombat:
         print("Attacking with a Sword")
-        attackOrInteractForm.set_images (combat_list ("slashresize"))
     else:
         print("Interacting with X")
 
-        attackOrInteractForm.set_images (image_list ("buttonA"))
-
 def arrowOrCombat ():
     global isCombat, arrowOrCombatForm, attackOrInteractForm, bombButtonForm, nonCombatForm ,playerArrows, arrows
-	
     pygame.display.update()
-    pygame.time.delay(toggle_delay)
     if isCombat:
-        arrowOrCombatForm.set_images(combat_list("arrowresize"))
         if playerArrows >= 1:
             print("Shooting an Arrow")
             playerArrows = playerArrows - 1
@@ -220,19 +211,15 @@ def arrowOrCombat ():
 
 def bombButton ():
     global isCombat, bombButtonForm, playerBombs, bombs
-    
     pygame.display.update()
-    pygame.time.delay(toggle_delay)
     if isCombat:
         if playerBombs >= 1: 
-            bombButtonForm.set_images(combat_list("bombresize"))
             print ("Placing Bomb Down")
             playerBombs = playerBombs - 1
             if playerBombs == 0:
                 bombs.updateColours(red,red,red,red)
             bombs.updateText(str(playerBombs))
         else:
-            bombButtonForm.set_images(combat_list("bombresize"))
             print ("Out Of Bombs")
     else:
         bombButtonForm.set_images(combat_list("blank"))
@@ -240,9 +227,7 @@ def bombButton ():
         
 def nonCombatButton ():
     global isCombat, arrowOrCombatForm, attackOrInteractForm, bombButtonForm, nonCombatForm
-    
     pygame.display.update()
-    pygame.time.delay(toggle_delay)
     if isCombat:
         print ("Switching to Adventure Menu")
         isCombat = False
@@ -258,7 +243,6 @@ def nonCombatButton ():
        
 def freezeButtons():
     global health, bombs, arrows, health_text, bombcount_text, arrowcount_text
-
     health.set_frozen()
     health_text.set_frozen()
     bombs.set_frozen()
@@ -295,31 +279,18 @@ def damagePlayer():
         health.updateColours(red,red,red,red)
     health.updateText(str(playerHealth))
     
-def signal_value (n):
-    global signal_level, signal
-    signal_level = n
-    signal.set_images (image_list ("signal%d" % (n)))
-    
-def test_ping ():
-    print ("I'm a button that works when clicked!")
-
+def signal_value ():
+    global signal
+    signal.set_images (image_list ("signal3"))
 
 def main ():
-    global tabletOrMouse, audio, orig_mouse_pointer, attackOrInteractForm, arrowOrCombatForm, bombButtonForm , nonCombatForm, combatTestForm, playerHealth, playerBombs, playerArrows
+    global tabletOrMouse, audio, orig_mouse_pointer, attackOrInteractForm, arrowOrCombatForm, bombButtonForm , nonCombatForm, combatTestForm, playerHealth, playerBombs, playerArrows, signal
     global forest_green, black, dark_blue
     global health, bombs, arrows, health_text, bombcount_text, arrowcount_text
     global bombDebug, arrowDebug, healDebug, damageDebug
 
-    done = False
-
     pygame.init ()
-    if full_screen:
-        #gameDisplay = pygame.display.set_mode ((display_width, display_height), FULLSCREEN)
-		gameDisplay = pygame.display.set_mode ((display_width, display_height))
-    else:
-        gameDisplay = pygame.display.set_mode ((display_width, display_height))
-
-    myfont = pygame.font.SysFont("Times New Roman",72)
+    gameDisplay = pygame.display.set_mode ((display_width, display_height))
 
     orig_mouse_pointer = pygame.mouse.get_cursor ()
 
@@ -327,95 +298,90 @@ def main ():
     touchgui.set_display (gameDisplay, display_width, display_height)
     isoobject.set_display (gameDisplay, display_width, display_height)
 
-    tabletOrMouse = touchgui.image_tile (image_list ("tablet"),                     #As far as i'm aware, this hides the mouse. Probably expects a touch input to be equivalent to a mouse click
-                                         touchgui.posX (0.1), touchgui.posY (1.0),  #Calls image_tile. Seems to create a "blank" box with an image. Needs to be transparent otherwise we get a background?
-                                         100, 100, flipMouseTablet)
+    # tabletOrMouse - Hides/shows the mouse cursor, used when either on PC or a Tablet
+    tabletOrMouse = touchgui.image_tile (image_list ("mouse"), touchgui.posX (0.1), touchgui.posY (1.0), 100, 100, flipMouseTablet)
 
-    audio = touchgui.image_tile (image_list ("audioOn"),                            #Determine whether Audio will be played or not
-                                 touchgui.posX (0.0), touchgui.posY (1.0),
-                                 100, 100, flipAudio)
+    # audio - Flips audio for the program
+    audio = touchgui.image_tile (image_list ("audioOn"), touchgui.posX (0.0), touchgui.posY (1.0), 100, 100, flipAudio)
 
-    signal = touchgui.image_tile (image_list ("signal1"),                           #Perhaps showcases Wi-Fi signal strength.
-                                  touchgui.posX (0.15), touchgui.posY (1.0),
-                                  100, 100, signal_value)
+    # signal - displays network signal.
+    signal = touchgui.image_tile (image_list ("signal1"), touchgui.posX (0.15), touchgui.posY (1.0), 100, 100, signal_value)
 
+    # attackorInteractForm - Either attack with Sword, or interact button depending on mode
     attackOrInteractForm = touchgui.image_tile(combat_list ("slashresize"), touchgui.posX (0.95), touchgui.posY (0.1), 100, 100, interactOrAttack)
     
+    # arrowOrCombatForm - Either shoot an arrow, or switch to combat mode, depending on mode
     arrowOrCombatForm = touchgui.image_tile(combat_list ("arrowresize"), touchgui.posX (0.95), touchgui.posY (0.3), 100, 100, arrowOrCombat)
     
+    # bombButtonForm - Either place a grenade, or an invisible button, depending on mode
     bombButtonForm = touchgui.image_tile(combat_list ("bombresize"), touchgui.posX (0.95), touchgui.posY (0.5), 100, 100, bombButton)
     
+    # nonCombatForm - Switches to adventure mode, or an invisible button, depending on mode
     nonCombatForm = touchgui.image_tile(image_list ("cross"), touchgui.posX (0.95), touchgui.posY (0.7), 100, 100, nonCombatButton)
     
-
-    controls = [touchgui.form ([touchgui.image_tile (image_list ("power"), #Power Button, to shut the app down. OR perhaps just use the tablet's OS to shut the app down?
-                                                     touchgui.posX (0.95), touchgui.posY (1.0),
-                                                     100, 100, myquit),
+    # controls - Form for our extra buttons in the top left of the screen, and the power in the top right
+    controls = [touchgui.form ([touchgui.image_tile (image_list ("power"), touchgui.posX (0.95), touchgui.posY (1.0),100, 100, myquit),
 
                                 audio,
 
-                                touchgui.image_tile (image_list ("singleplayer"),   #Supposedly disconnects/connects the player to a server?
-                                                     touchgui.posX (0.05), touchgui.posY (1.0),
-                                                     100, 100),
+                                touchgui.image_tile (image_list ("singleplayer"), touchgui.posX (0.05), touchgui.posY (1.0), 100, 100),
 
                                 tabletOrMouse, signal,
 
-    ])]
+                                touchgui.image_tile (image_list ("singleplayer"), touchgui.posX (0.05), touchgui.posY (1.0), 100, 100) ])]
 
-    movement_arrows = [touchgui.form ([touchgui.image_tile (image_list ("arrowUp"),
-                                                     touchgui.posX (0.05), touchgui.posY (0.30),
-                                                     100, 100),
+    # movement_arrows - Form for our movement buttons on the bottom left of the screen
+    movement_arrows = [touchgui.form ([touchgui.image_tile (image_list ("arrowUp"), touchgui.posX (0.05), touchgui.posY (0.30), 100, 100),
 
-                                touchgui.image_tile (image_list ("arrowLeft"),
-                                                     touchgui.posX (0.00), touchgui.posY (0.20),
-                                                     100, 100, orient_left),
+                                touchgui.image_tile (image_list ("arrowLeft"), touchgui.posX (0.00), touchgui.posY (0.20), 100, 100, orient_left),
 
-                                touchgui.image_tile (image_list ("arrowRight"),
-                                                     touchgui.posX (0.10), touchgui.posY (0.20),
-                                                     100, 100, orient_right),
+                                touchgui.image_tile (image_list ("arrowRight"), touchgui.posX (0.10), touchgui.posY (0.20), 100, 100, orient_right),
 
-                                touchgui.image_tile (image_list ("arrowDown"),
-                                                     touchgui.posX (0.05), touchgui.posY (0.10),
-                                                     100, 100, orient_back),
-
-                                touchgui.image_tile (image_list ("singleplayer"),   #Supposedly disconnects/connects the player to a server?
-                                                     touchgui.posX (0.05), touchgui.posY (1.0),
-                                                     100, 100, orient270),                                                                       
-
-    ])]
+                                touchgui.image_tile (image_list ("arrowDown"), touchgui.posX (0.05), touchgui.posY (0.10), 100, 100, orient_back)])]
     
+    # health - Info panel showing off the player's HP
     health = touchgui.text_tile (forest_green, forest_green, forest_green, forest_green, str(playerHealth),touchgui.unitY (0.05), touchgui.posX (0.35), touchgui.posY (0.95), touchgui.unitX (0.045), touchgui.unitY (0.045))
 
+    # health_text - Just a label
     health_text = touchgui.text_tile (black, black, black, black, "Health",touchgui.unitY (0.05), touchgui.posX (0.35), touchgui.posY (1.0), touchgui.unitX (0.045), touchgui.unitY (0.045))
     
+    # bombs - Info panel showing off the player's grenade count
     bombs = touchgui.text_tile (forest_green, forest_green, forest_green, forest_green, str(playerBombs),touchgui.unitY (0.05), touchgui.posX (0.5), touchgui.posY (0.95), touchgui.unitX (0.045), touchgui.unitY (0.045))
     
+    # bombcount_text - Just a Label
     bombcount_text = touchgui.text_tile (black, black, black, black, "Bombs",touchgui.unitY (0.05), touchgui.posX (0.50), touchgui.posY (1.0), touchgui.unitX (0.045), touchgui.unitY (0.045))
 
+    # arrows - Info panel showing off the player's arrow count
     arrows = touchgui.text_tile (forest_green, forest_green, forest_green, forest_green, str(playerArrows),touchgui.unitY (0.05), touchgui.posX (0.65), touchgui.posY (0.95), touchgui.unitX (0.045), touchgui.unitY (0.045))
 
+    # arrowcount_text - Just a Label
     arrowcount_text = touchgui.text_tile (black, black, black, black, "Arrows",touchgui.unitY (0.05), touchgui.posX (0.65), touchgui.posY (1.0), touchgui.unitX (0.045), touchgui.unitY (0.045))
     
+    # arrowDebug - Debug button that gives the player 10 arrows
     arrowDebug = touchgui.text_tile (dark_blue, dark_blue, blue, green, "Give 10 Arrows",touchgui.unitY (0.05), touchgui.posX (0.03), touchgui.posY (0.75), touchgui.unitX (0.15), touchgui.unitY (0.045), giveArrows)
     
+    # bombDebug - Debug button that gives the player 10 grenades
     bombDebug = touchgui.text_tile (dark_blue, dark_blue, blue, green, "Give 10 Bombs",touchgui.unitY (0.05), touchgui.posX (0.03), touchgui.posY (0.7), touchgui.unitX (0.15), touchgui.unitY (0.045), giveBombs)
 
+    # healDebug - Debug button that heals the player back to 100HP
     healDebug = touchgui.text_tile (dark_blue, dark_blue, blue, green, "Heal to Full",touchgui.unitY (0.05), touchgui.posX (0.03), touchgui.posY (0.65), touchgui.unitX (0.15), touchgui.unitY (0.045), healPlayer)
     
+    # damageDebug - Debug button that hits the player for 10HP
     damageDebug = touchgui.text_tile (dark_blue, dark_blue, blue, green, "10 Damage",touchgui.unitY (0.05), touchgui.posX (0.03), touchgui.posY (0.6), touchgui.unitX (0.15), touchgui.unitY (0.045), damagePlayer)
     
+    # health_and_info - Form that merges the HP, Arrow and Grenade info panels and Labels
     health_and_info = [touchgui.form([ health, health_text,bombs, bombcount_text, arrows, arrowcount_text])]
     
+    # interaction_buttons - Form that merges the 4 interaction buttons in the bottom right
     interaction_buttons = [touchgui.form([ attackOrInteractForm, arrowOrCombatForm, bombButtonForm ,nonCombatForm])]
     
+    # debug_menu - Form that merges the debug buttons together
     debug_menu = [touchgui.form([arrowDebug, bombDebug, healDebug, damageDebug])]
     
-    text1 = myfont.render("Text",True,white)
     forms = controls + movement_arrows + interaction_buttons + health_and_info + debug_menu
     isoobject.testRoom ()                  #Renders a basic 3D room for us
     touchgui.select (forms, myquit)
     freezeButtons()
-    gameDisplay.blit(text1,(touchgui.posX (0.5) , touchgui.posY (0.9)))
     pygame.display.update()
 
 
